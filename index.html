@@ -74,6 +74,42 @@
             transform: translateX(100%);
         }
         
+        /* Boot Screen */
+        .boot-screen {
+            background: var(--darker);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .boot-logo {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .boot-progress {
+            width: 200px;
+            height: 4px;
+            background: var(--glass);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        .boot-progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        
         /* Status Bar */
         .status-bar {
             height: 44px;
@@ -260,6 +296,35 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        
+        /* Update Screen */
+        .update-screen {
+            background: var(--darker);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .update-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        
+        .update-progress-text {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.8;
         }
         
         /* Lock Screen */
@@ -979,6 +1044,114 @@
             background: linear-gradient(135deg, var(--primary), var(--accent));
         }
         
+        /* Gallery App */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+        
+        .gallery-item {
+            aspect-ratio: 1;
+            background: var(--glass);
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+        
+        /* Calendar App */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-month {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .calendar-day {
+            text-align: center;
+            padding: 10px 5px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+        .calendar-date {
+            text-align: center;
+            padding: 10px 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .calendar-date:hover {
+            background: var(--glass);
+        }
+        
+        .calendar-date.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+        
+        /* Browser App */
+        .browser-url {
+            background: var(--glass);
+            border-radius: 15px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .browser-url i {
+            opacity: 0.7;
+        }
+        
+        .browser-url input {
+            background: transparent;
+            border: none;
+            color: var(--light);
+            font-size: 16px;
+            width: 100%;
+            outline: none;
+        }
+        
+        .browser-content {
+            background: var(--glass);
+            border-radius: 15px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .browser-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        
         /* Battery Animation */
         @keyframes batteryDrain {
             0% { width: 85%; }
@@ -1012,8 +1185,17 @@
     <div class="phone-container">
         <div class="notch"></div>
         <div class="screen">
+            <!-- Boot Screen -->
+            <div class="page boot-screen" id="boot-screen">
+                <div class="boot-logo">PartexOS</div>
+                <div class="boot-progress">
+                    <div class="boot-progress-bar" id="boot-progress"></div>
+                </div>
+                <div class="setup-subtitle">PartexPhone wird gestartet...</div>
+            </div>
+            
             <!-- Welcome Screen -->
-            <div class="page setup-screen" id="welcome-screen">
+            <div class="page setup-screen hidden" id="welcome-screen">
                 <div class="setup-logo">PartexOS</div>
                 <div class="setup-title">Willkommen</div>
                 <div class="setup-subtitle">Richten Sie Ihr PartexPhone ein und beginnen Sie mit der Nutzung</div>
@@ -1163,6 +1345,22 @@
                         <div class="progress" id="activation-progress"></div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Update Screen -->
+            <div class="page update-screen hidden" id="update-screen">
+                <div class="update-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <div class="setup-title">PartexOS 10.1 wird installiert</div>
+                <div class="setup-subtitle">Bitte schalten Sie das Gerät nicht aus.</div>
+                
+                <div class="setup-progress">
+                    <div class="progress-bar">
+                        <div class="progress" id="update-progress"></div>
+                    </div>
+                </div>
+                <div class="update-progress-text" id="update-text">Vorbereitung...</div>
             </div>
             
             <!-- Lock Screen -->
@@ -1398,7 +1596,7 @@
                     
                     <div class="settings-section">
                         <div class="section-title">Gerät</div>
-                        <div class="settings-item">
+                        <div class="settings-item" id="notifications-settings">
                             <div class="left">
                                 <div class="settings-icon">
                                     <i class="fas fa-bell"></i>
@@ -1410,7 +1608,7 @@
                             </div>
                             <div>→</div>
                         </div>
-                        <div class="settings-item">
+                        <div class="settings-item" id="display-settings">
                             <div class="left">
                                 <div class="settings-icon">
                                     <i class="fas fa-display"></i>
@@ -1422,7 +1620,7 @@
                             </div>
                             <div>→</div>
                         </div>
-                        <div class="settings-item">
+                        <div class="settings-item" id="sounds-settings">
                             <div class="left">
                                 <div class="settings-icon">
                                     <i class="fas fa-volume-up"></i>
@@ -1434,7 +1632,7 @@
                             </div>
                             <div>→</div>
                         </div>
-                        <div class="settings-item">
+                        <div class="settings-item" id="security-settings">
                             <div class="left">
                                 <div class="settings-icon">
                                     <i class="fas fa-shield-alt"></i>
@@ -1450,19 +1648,19 @@
                     
                     <div class="settings-section">
                         <div class="section-title">System</div>
-                        <div class="settings-item">
+                        <div class="settings-item" id="update-settings">
                             <div class="left">
                                 <div class="settings-icon">
                                     <i class="fas fa-sync-alt"></i>
                                 </div>
                                 <div>
                                     <div class="settings-text">Systemupdate</div>
-                                    <div class="settings-desc">PartexOS 10.0 ist aktuell</div>
+                                    <div class="settings-desc">PartexOS 10.0 verfügbar</div>
                                 </div>
                             </div>
                             <div>→</div>
                         </div>
-                        <div class="settings-item">
+                        <div class="settings-item" id="about-settings">
                             <div class="left">
                                 <div class="settings-icon">
                                     <i class="fas fa-info-circle"></i>
@@ -1646,21 +1844,128 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Gallery App -->
+            <div class="page app-screen hidden" id="gallery-app">
+                <div class="app-header">
+                    <div class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="app-title">Galerie</div>
+                </div>
+                <div class="app-content">
+                    <div class="gallery-grid">
+                        <div class="gallery-item"><i class="fas fa-image"></i></div>
+                        <div class="gallery-item"><i class="fas fa-image"></i></div>
+                        <div class="gallery-item"><i class="fas fa-image"></i></div>
+                        <div class="gallery-item"><i class="fas fa-image"></i></div>
+                        <div class="gallery-item"><i class="fas fa-image"></i></div>
+                        <div class="gallery-item"><i class="fas fa-image"></i></div>
+                        <div class="gallery-item"><i class="fas fa-image"></i></div>
+                        <div class="gallery-item"><i class="fas fa-image"></i></div>
+                        <div class="gallery-item"><i class="fas fa-image"></i></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Calendar App -->
+            <div class="page app-screen hidden" id="calendar-app">
+                <div class="app-header">
+                    <div class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="app-title">Kalender</div>
+                </div>
+                <div class="app-content">
+                    <div class="calendar-header">
+                        <div class="calendar-month">Mai 2023</div>
+                        <div class="control-btn">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </div>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-day">Mo</div>
+                        <div class="calendar-day">Di</div>
+                        <div class="calendar-day">Mi</div>
+                        <div class="calendar-day">Do</div>
+                        <div class="calendar-day">Fr</div>
+                        <div class="calendar-day">Sa</div>
+                        <div class="calendar-day">So</div>
+                        
+                        <div class="calendar-date">1</div>
+                        <div class="calendar-date">2</div>
+                        <div class="calendar-date">3</div>
+                        <div class="calendar-date">4</div>
+                        <div class="calendar-date">5</div>
+                        <div class="calendar-date">6</div>
+                        <div class="calendar-date">7</div>
+                        <div class="calendar-date">8</div>
+                        <div class="calendar-date">9</div>
+                        <div class="calendar-date">10</div>
+                        <div class="calendar-date">11</div>
+                        <div class="calendar-date">12</div>
+                        <div class="calendar-date">13</div>
+                        <div class="calendar-date">14</div>
+                        <div class="calendar-date active">15</div>
+                        <div class="calendar-date">16</div>
+                        <div class="calendar-date">17</div>
+                        <div class="calendar-date">18</div>
+                        <div class="calendar-date">19</div>
+                        <div class="calendar-date">20</div>
+                        <div class="calendar-date">21</div>
+                        <div class="calendar-date">22</div>
+                        <div class="calendar-date">23</div>
+                        <div class="calendar-date">24</div>
+                        <div class="calendar-date">25</div>
+                        <div class="calendar-date">26</div>
+                        <div class="calendar-date">27</div>
+                        <div class="calendar-date">28</div>
+                        <div class="calendar-date">29</div>
+                        <div class="calendar-date">30</div>
+                        <div class="calendar-date">31</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Browser App -->
+            <div class="page app-screen hidden" id="browser-app">
+                <div class="app-header">
+                    <div class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="app-title">Browser</div>
+                </div>
+                <div class="app-content">
+                    <div class="browser-url">
+                        <i class="fas fa-lock"></i>
+                        <input type="text" value="https://partexos.com" readonly>
+                    </div>
+                    <div class="browser-content">
+                        <div class="browser-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="setup-title">Willkommen bei PartexBrowser</div>
+                        <div class="setup-subtitle">Geben Sie eine URL ein oder suchen Sie nach etwas</div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <!-- Navigation Bar with Home Button -->
-        <div class="nav-bar">
+        <div class="nav-bar hidden" id="nav-bar">
             <div class="home-button" id="home-button"></div>
         </div>
     </div>
 
     <script>
         // DOM Elements
+        const bootScreen = document.getElementById('boot-screen');
         const welcomeScreen = document.getElementById('welcome-screen');
         const languageScreen = document.getElementById('language-screen');
         const wifiScreen = document.getElementById('wifi-screen');
         const accountScreen = document.getElementById('account-screen');
         const activationScreen = document.getElementById('activation-screen');
+        const updateScreen = document.getElementById('update-screen');
         const lockScreen = document.getElementById('lock-screen');
         const homeScreen = document.getElementById('home-screen');
         const settingsApp = document.getElementById('settings-app');
@@ -1668,7 +1973,11 @@
         const messagesApp = document.getElementById('messages-app');
         const phoneApp = document.getElementById('phone-app');
         const musicApp = document.getElementById('music-app');
+        const galleryApp = document.getElementById('gallery-app');
+        const calendarApp = document.getElementById('calendar-app');
+        const browserApp = document.getElementById('browser-app');
         const homeButton = document.getElementById('home-button');
+        const navBar = document.getElementById('nav-bar');
         const backButtons = document.querySelectorAll('.back-button');
         const appIcons = document.querySelectorAll('.app, .dock-app');
         const unlockProgress = document.getElementById('unlock-progress');
@@ -1683,14 +1992,38 @@
         const makeCall = document.getElementById('make-call');
         const takePhoto = document.getElementById('take-photo');
         const playBtn = document.querySelector('.play-btn');
+        const bootProgress = document.getElementById('boot-progress');
+        const updateProgress = document.getElementById('update-progress');
+        const updateText = document.getElementById('update-text');
         
         // Current screen state
-        let currentScreen = 'welcome-screen';
+        let currentScreen = 'boot-screen';
         let unlockProgressValue = 0;
         let unlockInterval;
         let currentStep = 0;
         let phoneNumberValue = '';
         let isPlaying = false;
+        let isSetupComplete = false;
+        
+        // Start boot process
+        startBootProcess();
+        
+        function startBootProcess() {
+            let progress = 0;
+            const bootInterval = setInterval(() => {
+                progress += 1;
+                bootProgress.style.width = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(bootInterval);
+                    setTimeout(() => {
+                        bootScreen.classList.add('hidden');
+                        welcomeScreen.classList.remove('hidden');
+                        currentScreen = 'welcome-screen';
+                    }, 500);
+                }
+            }, 200); // 20 seconds total
+        }
         
         // Setup navigation
         document.getElementById('welcome-next').addEventListener('click', () => navigateSetup('language-screen'));
@@ -1716,7 +2049,9 @@
             // Update progress bars
             const progress = ((currentStep + 1) / steps.length) * 100;
             progressBars.forEach(bar => {
-                bar.style.width = `${progress}%`;
+                if (bar.id !== 'boot-progress' && bar.id !== 'update-progress') {
+                    bar.style.width = `${progress}%`;
+                }
             });
             
             // Start activation process
@@ -1728,9 +2063,55 @@
         function startActivation() {
             setTimeout(() => {
                 document.getElementById('activation-screen').classList.add('hidden');
-                lockScreen.classList.remove('hidden');
-                currentScreen = 'lock-screen';
-            }, 4000);
+                updateScreen.classList.remove('hidden');
+                currentScreen = 'update-screen';
+                startUpdateProcess();
+            }, 3000);
+        }
+        
+        function startUpdateProcess() {
+            let progress = 0;
+            const updateStages = [
+                "Vorbereitung...",
+                "Downloading PartexOS 10.1...",
+                "Überprüfe Update...",
+                "Installiere Systemkomponenten...",
+                "Finalisiere Installation..."
+            ];
+            let stage = 0;
+            
+            updateText.textContent = updateStages[stage];
+            
+            const updateInterval = setInterval(() => {
+                progress += 1;
+                updateProgress.style.width = `${progress}%`;
+                
+                // Update stage text
+                if (progress >= 20 && stage < 1) {
+                    stage = 1;
+                    updateText.textContent = updateStages[stage];
+                } else if (progress >= 40 && stage < 2) {
+                    stage = 2;
+                    updateText.textContent = updateStages[stage];
+                } else if (progress >= 60 && stage < 3) {
+                    stage = 3;
+                    updateText.textContent = updateStages[stage];
+                } else if (progress >= 80 && stage < 4) {
+                    stage = 4;
+                    updateText.textContent = updateStages[stage];
+                }
+                
+                if (progress >= 100) {
+                    clearInterval(updateInterval);
+                    setTimeout(() => {
+                        updateScreen.classList.add('hidden');
+                        lockScreen.classList.remove('hidden');
+                        currentScreen = 'lock-screen';
+                        isSetupComplete = true;
+                        navBar.classList.remove('hidden');
+                    }, 1000);
+                }
+            }, 60); // 1 minute total
         }
         
         // Update date and time
@@ -1749,6 +2130,8 @@
         
         // Unlock screen functionality
         function startUnlock() {
+            if (!isSetupComplete) return;
+            
             unlockInterval = setInterval(() => {
                 unlockProgressValue += 2;
                 unlockProgress.style.width = `${unlockProgressValue}%`;
@@ -1797,29 +2180,50 @@
         appIcons.forEach(icon => {
             icon.addEventListener('click', function() {
                 const appName = this.getAttribute('data-app');
-                
-                if (appName === 'settings') {
-                    homeScreen.classList.add('hidden');
-                    settingsApp.classList.remove('hidden');
-                    currentScreen = 'settings-app';
-                } else if (appName === 'camera') {
-                    homeScreen.classList.add('hidden');
-                    cameraApp.classList.remove('hidden');
-                    currentScreen = 'camera-app';
-                } else if (appName === 'messages') {
-                    homeScreen.classList.add('hidden');
-                    messagesApp.classList.remove('hidden');
-                    currentScreen = 'messages-app';
-                } else if (appName === 'phone') {
-                    homeScreen.classList.add('hidden');
-                    phoneApp.classList.remove('hidden');
-                    currentScreen = 'phone-app';
-                } else if (appName === 'music') {
-                    homeScreen.classList.add('hidden');
-                    musicApp.classList.remove('hidden');
-                    currentScreen = 'music-app';
-                }
+                navigateToApp(appName);
             });
+        });
+        
+        function navigateToApp(appName) {
+            homeScreen.classList.add('hidden');
+            
+            if (appName === 'settings') {
+                settingsApp.classList.remove('hidden');
+                currentScreen = 'settings-app';
+            } else if (appName === 'camera') {
+                cameraApp.classList.remove('hidden');
+                currentScreen = 'camera-app';
+            } else if (appName === 'messages') {
+                messagesApp.classList.remove('hidden');
+                currentScreen = 'messages-app';
+            } else if (appName === 'phone') {
+                phoneApp.classList.remove('hidden');
+                currentScreen = 'phone-app';
+            } else if (appName === 'music') {
+                musicApp.classList.remove('hidden');
+                currentScreen = 'music-app';
+            } else if (appName === 'gallery') {
+                galleryApp.classList.remove('hidden');
+                currentScreen = 'gallery-app';
+            } else if (appName === 'calendar') {
+                calendarApp.classList.remove('hidden');
+                currentScreen = 'calendar-app';
+            } else if (appName === 'browser') {
+                browserApp.classList.remove('hidden');
+                currentScreen = 'browser-app';
+            }
+        }
+        
+        // Settings navigation
+        document.getElementById('update-settings').addEventListener('click', function() {
+            settingsApp.classList.add('hidden');
+            updateScreen.classList.remove('hidden');
+            currentScreen = 'update-screen';
+            startUpdateProcess();
+        });
+        
+        document.getElementById('about-settings').addEventListener('click', function() {
+            alert('PartexOS 10.1\n© 2023 Partex Technologies\nBuild: PXOS-10.1-20230515');
         });
         
         // Back button functionality
