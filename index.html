@@ -12,6 +12,7 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         
         :root {
@@ -72,6 +73,7 @@
         
         .hidden {
             transform: translateX(100%);
+            pointer-events: none;
         }
         
         /* Control Center */
@@ -113,9 +115,12 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .control-item:hover {
+        .control-item.active {
             background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.05);
+        }
+        
+        .control-item.active .control-icon {
+            background: var(--success);
         }
         
         .control-icon {
@@ -127,6 +132,7 @@
             justify-content: center;
             align-items: center;
             font-size: 18px;
+            transition: var(--transition);
         }
         
         .control-label {
@@ -146,6 +152,7 @@
             background: var(--glass);
             padding: 15px;
             border-radius: 15px;
+            margin-bottom: 10px;
         }
         
         .slider-icon {
@@ -199,6 +206,12 @@
             background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .boot-progress {
@@ -427,6 +440,12 @@
             align-items: center;
             font-size: 36px;
             margin-bottom: 30px;
+            animation: rotate 3s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
         
         .update-progress-text {
@@ -501,11 +520,18 @@
             gap: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: var(--transition);
+            animation: slideInUp 0.5s ease;
         }
         
-        .notification:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.15);
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .notification-icon {
@@ -546,20 +572,34 @@
             opacity: 0.8;
         }
         
-        .unlock-bar {
-            width: 120px;
-            height: 5px;
+        .unlock-handle {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
             background: var(--glass);
-            border-radius: 3px;
+            backdrop-filter: var(--blur);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: grab;
+            transition: var(--transition);
+            position: relative;
             overflow: hidden;
         }
         
-        .unlock-progress {
-            height: 100%;
-            background: var(--light);
-            width: 0%;
-            transition: width 0.3s;
-            border-radius: 3px;
+        .unlock-handle::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--light);
+            border-radius: 6px;
+        }
+        
+        .unlock-handle.active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
         }
         
         /* Home Screen */
@@ -568,11 +608,12 @@
             padding: 60px 20px 120px;
             display: flex;
             flex-direction: column;
+            overflow-y: auto;
         }
         
         .home-time {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         
         .home-time .time {
@@ -593,10 +634,11 @@
             background: var(--glass);
             backdrop-filter: var(--blur);
             border-radius: 20px;
-            padding: 20px;
+            padding: 15px;
             margin-bottom: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: var(--transition);
+            animation: slideInUp 0.5s ease;
         }
         
         .widget:hover {
@@ -608,18 +650,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         .widget-title {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 14px;
         }
         
         .widget-content {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 12px;
         }
         
         .weather-item {
@@ -630,35 +672,35 @@
         }
         
         .weather-icon {
-            font-size: 24px;
+            font-size: 20px;
             margin-bottom: 5px;
         }
         
         .weather-temp {
             font-weight: 600;
-            font-size: 18px;
+            font-size: 16px;
         }
         
         .weather-day {
-            font-size: 12px;
+            font-size: 11px;
             opacity: 0.7;
         }
         
         .music-widget {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
         
         .music-cover {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 20px;
+            font-size: 16px;
         }
         
         .music-info {
@@ -667,29 +709,31 @@
         
         .music-title {
             font-weight: 600;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
+            font-size: 14px;
         }
         
         .music-artist {
-            font-size: 12px;
+            font-size: 11px;
             opacity: 0.7;
         }
         
         .music-controls {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         
         .music-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 15px;
+            width: 28px;
+            height: 28px;
+            border-radius: 14px;
             background: rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             transition: var(--transition);
+            font-size: 12px;
         }
         
         .music-btn:hover {
@@ -701,7 +745,7 @@
             backdrop-filter: var(--blur);
             border-radius: 25px;
             padding: 12px 20px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -730,8 +774,7 @@
         .apps-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-top: 20px;
+            gap: 15px;
         }
         
         .app {
@@ -741,7 +784,13 @@
             cursor: pointer;
             transition: var(--transition);
             border-radius: 18px;
-            padding: 10px 5px;
+            padding: 8px 5px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
         
         .app:hover {
@@ -750,14 +799,14 @@
         }
         
         .app-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 18px;
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 24px;
-            margin-bottom: 8px;
+            font-size: 22px;
+            margin-bottom: 6px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             box-shadow: 0 5px 15px rgba(0, 102, 255, 0.3);
             transition: var(--transition);
@@ -768,21 +817,21 @@
         }
         
         .app-name {
-            font-size: 12px;
+            font-size: 11px;
             text-align: center;
             font-weight: 500;
         }
         
         .app-badge {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: -3px;
+            right: -3px;
             background: var(--error);
             color: white;
-            border-radius: 10px;
-            width: 18px;
-            height: 18px;
-            font-size: 10px;
+            border-radius: 8px;
+            width: 16px;
+            height: 16px;
+            font-size: 9px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -802,7 +851,7 @@
             background: var(--glass);
             backdrop-filter: var(--blur);
             border-radius: 25px;
-            padding: 10px;
+            padding: 8px;
             display: flex;
             justify-content: space-around;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -823,10 +872,10 @@
         }
         
         .dock-app .app-icon {
-            width: 50px;
-            height: 50px;
-            font-size: 20px;
-            margin-bottom: 5px;
+            width: 45px;
+            height: 45px;
+            font-size: 18px;
+            margin-bottom: 4px;
         }
         
         /* Navigation Bar */
@@ -916,13 +965,13 @@
         
         /* Settings App */
         .settings-section {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         
         .section-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             opacity: 0.7;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -933,7 +982,7 @@
             backdrop-filter: var(--blur);
             border-radius: 15px;
             padding: 15px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -966,10 +1015,11 @@
         
         .settings-text {
             font-weight: 500;
+            font-size: 15px;
         }
         
         .settings-desc {
-            font-size: 13px;
+            font-size: 12px;
             opacity: 0.7;
             margin-top: 3px;
         }
@@ -1025,6 +1075,38 @@
             height: 100%;
             background: #000;
             position: relative;
+            overflow: hidden;
+        }
+        
+        .camera-view {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .camera-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .camera-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 25% 25%;
         }
         
         .camera-controls {
@@ -1048,6 +1130,7 @@
             align-items: center;
             cursor: pointer;
             transition: var(--transition);
+            border: 3px solid rgba(255, 255, 255, 0.3);
         }
         
         .camera-btn:hover {
@@ -1057,6 +1140,26 @@
         .camera-btn i {
             font-size: 28px;
             color: var(--dark);
+        }
+        
+        .camera-switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background: var(--glass);
+            backdrop-filter: var(--blur);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .camera-switch:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
         
         /* Messages App */
@@ -1187,6 +1290,12 @@
             align-items: center;
             font-size: 60px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            animation: rotateAlbum 20s linear infinite;
+        }
+        
+        @keyframes rotateAlbum {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
         
         .song-info {
@@ -1222,6 +1331,7 @@
             background: var(--glass);
             border-radius: 2px;
             overflow: hidden;
+            cursor: pointer;
         }
         
         .music-progress-bar {
@@ -1229,6 +1339,7 @@
             background: linear-gradient(135deg, var(--primary), var(--accent));
             width: 30%;
             border-radius: 2px;
+            transition: width 0.3s ease;
         }
         
         .music-controls {
@@ -1359,6 +1470,7 @@
             height: 400px;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
         
         .browser-toolbar {
@@ -1366,6 +1478,7 @@
             justify-content: space-between;
             padding: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--glass-dark);
         }
         
         .browser-toolbar button {
@@ -1379,29 +1492,37 @@
             transition: var(--transition);
         }
         
-        .browser-toolbar button:hover {
+        .browser-toolbar button:hover:not(:disabled) {
             background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .browser-toolbar button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
         
         .browser-page {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
+            background: white;
+            color: #333;
         }
         
         .browser-page h1 {
             font-size: 24px;
             margin-bottom: 15px;
+            color: #1a1a1a;
         }
         
         .browser-page p {
             margin-bottom: 15px;
             line-height: 1.5;
-            opacity: 0.8;
+            color: #666;
         }
         
         .browser-search {
-            background: var(--glass);
+            background: #f5f5f5;
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 20px;
@@ -1411,7 +1532,7 @@
             width: 100%;
             background: transparent;
             border: none;
-            color: var(--light);
+            color: #333;
             font-size: 16px;
             outline: none;
         }
@@ -1423,16 +1544,17 @@
         }
         
         .quick-link {
-            background: var(--glass);
+            background: #f8f8f8;
             border-radius: 10px;
             padding: 15px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
+            border: 1px solid #e0e0e0;
         }
         
         .quick-link:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: #e8e8e8;
             transform: translateY(-2px);
         }
         
@@ -1440,10 +1562,77 @@
             font-size: 24px;
             margin-bottom: 8px;
             opacity: 0.8;
+            color: #333;
         }
         
         .quick-link span {
             font-size: 12px;
+            color: #666;
+        }
+        
+        /* Permission Dialog */
+        .permission-dialog {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--dark);
+            border-radius: 20px;
+            padding: 25px;
+            width: 300px;
+            z-index: 2000;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: dialogAppear 0.3s ease;
+        }
+        
+        @keyframes dialogAppear {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        .permission-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .permission-message {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .permission-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .permission-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .permission-btn.allow {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .permission-btn.deny {
+            background: var(--glass);
+            color: white;
         }
         
         /* Battery Animation */
@@ -1592,6 +1781,7 @@
                     <div class="step"></div>
                     <div class="step"></div>
                     <div class="step"></div>
+                    <div class="step"></div>
                 </div>
                 
                 <div class="setup-progress">
@@ -1612,6 +1802,7 @@
                 <div class="step-indicator">
                     <div class="step"></div>
                     <div class="step active"></div>
+                    <div class="step"></div>
                     <div class="step"></div>
                     <div class="step"></div>
                     <div class="step"></div>
@@ -1639,6 +1830,54 @@
                 <button class="btn" id="language-next">Weiter</button>
             </div>
             
+            <!-- Lock Screen Setup -->
+            <div class="page setup-screen hidden" id="lockscreen-setup">
+                <div class="setup-logo">PartexOS</div>
+                <div class="setup-title">Sperrbildschirm</div>
+                <div class="setup-subtitle">Richten Sie die Sicherheit für Ihr Gerät ein</div>
+                
+                <div class="step-indicator">
+                    <div class="step"></div>
+                    <div class="step"></div>
+                    <div class="step active"></div>
+                    <div class="step"></div>
+                    <div class="step"></div>
+                    <div class="step"></div>
+                </div>
+                
+                <div class="setup-form">
+                    <div class="form-group">
+                        <label for="lock-type">Sperrmethode</label>
+                        <select id="lock-type">
+                            <option>Wischen</option>
+                            <option>PIN</option>
+                            <option>Muster</option>
+                            <option>Passwort</option>
+                            <option>Fingerabdruck</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lock-timeout">Sperrzeit</label>
+                        <select id="lock-timeout">
+                            <option>Sofort</option>
+                            <option>Nach 30 Sekunden</option>
+                            <option>Nach 1 Minute</option>
+                            <option>Nach 5 Minuten</option>
+                            <option>Nach 10 Minuten</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="setup-progress">
+                    <div class="progress-bar">
+                        <div class="progress" id="lockscreen-progress"></div>
+                    </div>
+                </div>
+                
+                <button class="btn" id="lockscreen-next">Weiter</button>
+            </div>
+            
             <!-- WiFi Setup -->
             <div class="page setup-screen hidden" id="wifi-screen">
                 <div class="setup-logo">PartexOS</div>
@@ -1646,6 +1885,7 @@
                 <div class="setup-subtitle">Wählen Sie ein WLAN-Netzwerk aus, um fortzufahren</div>
                 
                 <div class="step-indicator">
+                    <div class="step"></div>
                     <div class="step"></div>
                     <div class="step"></div>
                     <div class="step active"></div>
@@ -1686,6 +1926,7 @@
                 <div class="setup-subtitle">Erstellen Sie Ihr Partex-Konto oder melden Sie sich an</div>
                 
                 <div class="step-indicator">
+                    <div class="step"></div>
                     <div class="step"></div>
                     <div class="step"></div>
                     <div class="step"></div>
@@ -1789,9 +2030,9 @@
                 </div>
                 
                 <div class="unlock-area">
-                    <div class="unlock-hint">Swipe up to unlock</div>
-                    <div class="unlock-bar">
-                        <div class="unlock-progress" id="unlock-progress"></div>
+                    <div class="unlock-hint">Zum Entsperren nach oben wischen</div>
+                    <div class="unlock-handle" id="unlock-handle">
+                        <!-- Handle content -->
                     </div>
                 </div>
             </div>
@@ -1819,7 +2060,7 @@
                     <div class="widget">
                         <div class="widget-header">
                             <div class="widget-title">Wetter</div>
-                            <div class="control-btn">
+                            <div class="music-btn">
                                 <i class="fas fa-location-arrow"></i>
                             </div>
                         </div>
@@ -2080,6 +2321,22 @@
                     </div>
                     
                     <div class="settings-section">
+                        <div class="section-title">Apps & Berechtigungen</div>
+                        <div class="settings-item" id="app-permissions">
+                            <div class="left">
+                                <div class="settings-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div>
+                                    <div class="settings-text">App-Berechtigungen</div>
+                                    <div class="settings-desc">Kamera, Standort, Mikrofon</div>
+                                </div>
+                            </div>
+                            <div>→</div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
                         <div class="section-title">System</div>
                         <div class="settings-item" id="update-settings">
                             <div class="left">
@@ -2228,6 +2485,14 @@
                 </div>
                 <div class="app-content" style="padding: 0;">
                     <div class="camera-preview">
+                        <div class="camera-view">
+                            <div class="camera-overlay">
+                                <div class="camera-grid"></div>
+                            </div>
+                            <div class="camera-switch" id="camera-switch">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
                         <div class="camera-controls">
                             <div class="camera-btn" id="take-photo">
                                 <i class="fas fa-camera"></i>
@@ -2259,18 +2524,18 @@
                                 <span>1:24</span>
                                 <span>4:18</span>
                             </div>
-                            <div class="music-progress">
-                                <div class="music-progress-bar"></div>
+                            <div class="music-progress" id="music-progress">
+                                <div class="music-progress-bar" id="music-progress-bar"></div>
                             </div>
                         </div>
                         <div class="music-controls">
-                            <div class="control-btn">
+                            <div class="control-btn" id="prev-song">
                                 <i class="fas fa-backward"></i>
                             </div>
-                            <div class="control-btn play-btn">
+                            <div class="control-btn play-btn" id="play-pause">
                                 <i class="fas fa-play"></i>
                             </div>
-                            <div class="control-btn">
+                            <div class="control-btn" id="next-song">
                                 <i class="fas fa-forward"></i>
                             </div>
                         </div>
@@ -2370,39 +2635,19 @@
                 </div>
                 <div class="app-content">
                     <div class="browser-url">
-                        <i class="fas fa-lock"></i>
-                        <input type="text" id="browser-url" value="https://partexos.com" placeholder="URL eingeben oder suchen">
+                        <i class="fas fa-lock" id="browser-security-icon"></i>
+                        <input type="text" id="browser-url-input" value="https://www.google.com" placeholder="URL eingeben oder suchen">
                     </div>
                     <div class="browser-content">
                         <div class="browser-toolbar">
-                            <button id="browser-back"><i class="fas fa-arrow-left"></i></button>
-                            <button id="browser-forward"><i class="fas fa-arrow-right"></i></button>
+                            <button id="browser-back" disabled><i class="fas fa-arrow-left"></i></button>
+                            <button id="browser-forward" disabled><i class="fas fa-arrow-right"></i></button>
                             <button id="browser-refresh"><i class="fas fa-redo"></i></button>
                             <button id="browser-share"><i class="fas fa-share"></i></button>
                             <button id="browser-bookmarks"><i class="fas fa-bookmark"></i></button>
                         </div>
                         <div class="browser-page" id="browser-page">
-                            <div class="browser-search">
-                                <input type="text" id="browser-search" placeholder="Suchbegriff eingeben...">
-                            </div>
-                            <div class="quick-links">
-                                <div class="quick-link" data-url="https://partexos.com">
-                                    <i class="fas fa-home"></i>
-                                    <span>PartexOS</span>
-                                </div>
-                                <div class="quick-link" data-url="https://google.com">
-                                    <i class="fas fa-search"></i>
-                                    <span>Google</span>
-                                </div>
-                                <div class="quick-link" data-url="https://youtube.com">
-                                    <i class="fas fa-play"></i>
-                                    <span>YouTube</span>
-                                </div>
-                                <div class="quick-link" data-url="https://github.com">
-                                    <i class="fas fa-code"></i>
-                                    <span>GitHub</span>
-                                </div>
-                            </div>
+                            <!-- Browser content will be loaded here -->
                         </div>
                     </div>
                 </div>
@@ -2420,6 +2665,7 @@
         const bootScreen = document.getElementById('boot-screen');
         const welcomeScreen = document.getElementById('welcome-screen');
         const languageScreen = document.getElementById('language-screen');
+        const lockscreenSetup = document.getElementById('lockscreen-setup');
         const wifiScreen = document.getElementById('wifi-screen');
         const accountScreen = document.getElementById('account-screen');
         const activationScreen = document.getElementById('activation-screen');
@@ -2439,7 +2685,7 @@
         const controlCenter = document.getElementById('control-center');
         const backButtons = document.querySelectorAll('.back-button');
         const appIcons = document.querySelectorAll('.app, .dock-app');
-        const unlockProgress = document.getElementById('unlock-progress');
+        const unlockHandle = document.getElementById('unlock-handle');
         const timeElements = document.querySelectorAll('.time');
         const dateElements = document.querySelectorAll('.date');
         const toggles = document.querySelectorAll('.toggle input');
@@ -2450,30 +2696,35 @@
         const clearCall = document.getElementById('clear-call');
         const makeCall = document.getElementById('make-call');
         const takePhoto = document.getElementById('take-photo');
-        const playBtn = document.querySelector('.play-btn');
+        const cameraSwitch = document.getElementById('camera-switch');
+        const playPauseBtn = document.getElementById('play-pause');
+        const prevSongBtn = document.getElementById('prev-song');
+        const nextSongBtn = document.getElementById('next-song');
+        const musicProgress = document.getElementById('music-progress');
+        const musicProgressBar = document.getElementById('music-progress-bar');
         const bootProgress = document.getElementById('boot-progress');
         const updateProgress = document.getElementById('update-progress');
         const updateText = document.getElementById('update-text');
         const controlItems = document.querySelectorAll('.control-item');
-        const browserUrl = document.getElementById('browser-url');
+        const browserUrlInput = document.getElementById('browser-url-input');
         const browserPage = document.getElementById('browser-page');
-        const browserSearch = document.getElementById('browser-search');
-        const quickLinks = document.querySelectorAll('.quick-link');
         const browserBack = document.getElementById('browser-back');
         const browserForward = document.getElementById('browser-forward');
         const browserRefresh = document.getElementById('browser-refresh');
+        const browserSecurityIcon = document.getElementById('browser-security-icon');
         
         // Current screen state
         let currentScreen = 'boot-screen';
-        let unlockProgressValue = 0;
-        let unlockInterval;
         let currentStep = 0;
         let phoneNumberValue = '';
         let isPlaying = false;
         let isSetupComplete = false;
         let controlCenterOpen = false;
-        let browserHistory = ['https://partexos.com'];
+        let browserHistory = ['https://www.google.com'];
         let browserHistoryIndex = 0;
+        let cameraPermission = false;
+        let currentSongTime = 84; // 1:24 in seconds
+        let totalSongTime = 258; // 4:18 in seconds
         
         // Start boot process
         startBootProcess();
@@ -2497,7 +2748,8 @@
         
         // Setup navigation
         document.getElementById('welcome-next').addEventListener('click', () => navigateSetup('language-screen'));
-        document.getElementById('language-next').addEventListener('click', () => navigateSetup('wifi-screen'));
+        document.getElementById('language-next').addEventListener('click', () => navigateSetup('lockscreen-setup'));
+        document.getElementById('lockscreen-next').addEventListener('click', () => navigateSetup('wifi-screen'));
         document.getElementById('wifi-next').addEventListener('click', () => navigateSetup('account-screen'));
         document.getElementById('account-next').addEventListener('click', () => navigateSetup('activation-screen'));
         
@@ -2641,53 +2893,57 @@
             });
         });
         
-        // Unlock screen functionality
-        function startUnlock() {
-            if (!isSetupComplete) return;
-            
-            unlockInterval = setInterval(() => {
-                unlockProgressValue += 2;
-                unlockProgress.style.width = `${unlockProgressValue}%`;
-                
-                if (unlockProgressValue >= 100) {
-                    clearInterval(unlockInterval);
-                    unlockScreen();
-                }
-            }, 30);
+        // Swipe to unlock functionality
+        let startY = 0;
+        let currentY = 0;
+        let isDragging = false;
+        
+        unlockHandle.addEventListener('mousedown', startDrag);
+        unlockHandle.addEventListener('touchstart', startDrag);
+        
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag);
+        
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('touchend', endDrag);
+        
+        function startDrag(e) {
+            isDragging = true;
+            startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+            unlockHandle.classList.add('active');
         }
         
-        function stopUnlock() {
-            clearInterval(unlockInterval);
-            unlockProgressValue = 0;
-            unlockProgress.style.width = '0%';
+        function drag(e) {
+            if (!isDragging) return;
+            
+            e.preventDefault();
+            currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+            const deltaY = startY - currentY;
+            
+            if (deltaY > 0) {
+                const progress = Math.min(deltaY / 200, 1);
+                unlockHandle.style.transform = `translateY(-${progress * 100}px)`;
+                
+                if (progress >= 1) {
+                    unlockScreen();
+                }
+            }
+        }
+        
+        function endDrag() {
+            if (!isDragging) return;
+            
+            isDragging = false;
+            unlockHandle.classList.remove('active');
+            unlockHandle.style.transform = 'translateY(0)';
         }
         
         function unlockScreen() {
             lockScreen.classList.add('hidden');
             homeScreen.classList.remove('hidden');
             currentScreen = 'home-screen';
+            unlockHandle.style.transform = 'translateY(0)';
         }
-        
-        // Lock screen interaction
-        lockScreen.addEventListener('mousedown', startUnlock);
-        lockScreen.addEventListener('touchstart', startUnlock);
-        
-        lockScreen.addEventListener('mouseup', stopUnlock);
-        lockScreen.addEventListener('touchend', stopUnlock);
-        lockScreen.addEventListener('mouseleave', stopUnlock);
-        
-        // Home button functionality
-        homeButton.addEventListener('click', function() {
-            if (currentScreen !== 'home-screen' && currentScreen !== 'lock-screen') {
-                document.getElementById(currentScreen).classList.add('hidden');
-                homeScreen.classList.remove('hidden');
-                currentScreen = 'home-screen';
-            } else if (currentScreen === 'home-screen') {
-                homeScreen.classList.add('hidden');
-                lockScreen.classList.remove('hidden');
-                currentScreen = 'lock-screen';
-            }
-        });
         
         // Control Center swipe from right
         let touchStartX = 0;
@@ -2729,8 +2985,12 @@
                 settingsApp.classList.remove('hidden');
                 currentScreen = 'settings-app';
             } else if (appName === 'camera') {
-                cameraApp.classList.remove('hidden');
-                currentScreen = 'camera-app';
+                if (!cameraPermission) {
+                    showCameraPermissionDialog();
+                } else {
+                    cameraApp.classList.remove('hidden');
+                    currentScreen = 'camera-app';
+                }
             } else if (appName === 'messages') {
                 messagesApp.classList.remove('hidden');
                 currentScreen = 'messages-app';
@@ -2749,76 +3009,253 @@
             } else if (appName === 'browser') {
                 browserApp.classList.remove('hidden');
                 currentScreen = 'browser-app';
+                loadBrowserPage('https://www.google.com');
             }
         }
         
+        // Camera permission dialog
+        function showCameraPermissionDialog() {
+            const dialog = document.createElement('div');
+            dialog.className = 'permission-dialog';
+            dialog.innerHTML = `
+                <div class="permission-title">Kamera-Zugriff</div>
+                <div class="permission-message">
+                    "Kamera" möchte auf die Kamera Ihres Geräts zugreifen, um Fotos und Videos aufzunehmen.
+                </div>
+                <div class="permission-buttons">
+                    <button class="permission-btn deny">Ablehnen</button>
+                    <button class="permission-btn allow">Erlauben</button>
+                </div>
+            `;
+            
+            document.querySelector('.phone-container').appendChild(dialog);
+            
+            dialog.querySelector('.deny').addEventListener('click', () => {
+                document.querySelector('.phone-container').removeChild(dialog);
+            });
+            
+            dialog.querySelector('.allow').addEventListener('click', () => {
+                cameraPermission = true;
+                document.querySelector('.phone-container').removeChild(dialog);
+                cameraApp.classList.remove('hidden');
+                currentScreen = 'camera-app';
+            });
+        }
+        
+        // Camera functionality
+        takePhoto.addEventListener('click', function() {
+            if (!cameraPermission) return;
+            
+            this.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 100);
+            
+            // Simulate photo capture
+            const flash = document.createElement('div');
+            flash.style.position = 'absolute';
+            flash.style.top = '0';
+            flash.style.left = '0';
+            flash.style.width = '100%';
+            flash.style.height = '100%';
+            flash.style.background = 'white';
+            flash.style.opacity = '0';
+            flash.style.transition = 'opacity 0.3s';
+            cameraApp.querySelector('.camera-preview').appendChild(flash);
+            
+            setTimeout(() => {
+                flash.style.opacity = '0.8';
+            }, 10);
+            
+            setTimeout(() => {
+                flash.style.opacity = '0';
+            }, 100);
+            
+            setTimeout(() => {
+                cameraApp.querySelector('.camera-preview').removeChild(flash);
+            }, 400);
+            
+            // Show confirmation
+            setTimeout(() => {
+                alert('Foto aufgenommen! Das Bild wurde in der Galerie gespeichert.');
+            }, 500);
+        });
+        
+        cameraSwitch.addEventListener('click', function() {
+            this.style.transform = 'rotate(180deg)';
+            setTimeout(() => {
+                this.style.transform = 'rotate(0deg)';
+            }, 300);
+            alert('Kamera gewechselt');
+        });
+        
+        // Music player functionality
+        playPauseBtn.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            if (isPlaying) {
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+                document.querySelector('.album-art').style.animationPlayState = 'paused';
+            } else {
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+                document.querySelector('.album-art').style.animationPlayState = 'running';
+                
+                // Start progress animation
+                const progressInterval = setInterval(() => {
+                    if (!isPlaying) {
+                        clearInterval(progressInterval);
+                        return;
+                    }
+                    
+                    currentSongTime++;
+                    if (currentSongTime >= totalSongTime) {
+                        currentSongTime = 0;
+                    }
+                    
+                    const progressPercent = (currentSongTime / totalSongTime) * 100;
+                    musicProgressBar.style.width = `${progressPercent}%`;
+                    
+                    // Update time display
+                    const currentMinutes = Math.floor(currentSongTime / 60);
+                    const currentSeconds = currentSongTime % 60;
+                    document.querySelector('.progress-time span:first-child').textContent = 
+                        `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
+                }, 1000);
+            }
+            isPlaying = !isPlaying;
+        });
+        
+        musicProgress.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const percent = clickX / rect.width;
+            
+            currentSongTime = Math.floor(totalSongTime * percent);
+            const progressPercent = (currentSongTime / totalSongTime) * 100;
+            musicProgressBar.style.width = `${progressPercent}%`;
+            
+            // Update time display
+            const currentMinutes = Math.floor(currentSongTime / 60);
+            const currentSeconds = currentSongTime % 60;
+            document.querySelector('.progress-time span:first-child').textContent = 
+                `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
+        });
+        
         // Browser functionality
-        function navigateToUrl(url) {
-            browserUrl.value = url;
+        function loadBrowserPage(url) {
+            browserUrlInput.value = url;
             browserHistory.push(url);
             browserHistoryIndex = browserHistory.length - 1;
             
+            // Update browser buttons
+            browserBack.disabled = browserHistoryIndex <= 0;
+            browserForward.disabled = browserHistoryIndex >= browserHistory.length - 1;
+            
+            // Update security icon
+            if (url.startsWith('https://')) {
+                browserSecurityIcon.className = 'fas fa-lock';
+                browserSecurityIcon.style.color = 'var(--success)';
+            } else {
+                browserSecurityIcon.className = 'fas fa-exclamation-triangle';
+                browserSecurityIcon.style.color = 'var(--warning)';
+            }
+            
             // Simulate page loading
             browserPage.innerHTML = `
-                <div style="text-align: center; padding: 50px 20px;">
-                    <div style="font-size: 48px; margin-bottom: 20px; opacity: 0.7;">🌐</div>
-                    <h1>${getPageTitle(url)}</h1>
-                    <p>Willkommen auf ${url}</p>
-                    <p>Dies ist eine simulierte Browser-Ansicht.</p>
+                <div style="padding: 20px; font-family: Arial, sans-serif;">
+                    <h1 style="color: #1a73e8; margin-bottom: 20px;">${getPageTitle(url)}</h1>
+                    ${getPageContent(url)}
                 </div>
             `;
         }
         
         function getPageTitle(url) {
             const titles = {
-                'https://partexos.com': 'PartexOS Startseite',
-                'https://google.com': 'Google',
-                'https://youtube.com': 'YouTube',
-                'https://github.com': 'GitHub'
+                'https://www.google.com': 'Google',
+                'https://www.youtube.com': 'YouTube',
+                'https://www.github.com': 'GitHub',
+                'https://partexos.com': 'PartexOS Startseite'
             };
             return titles[url] || 'Unbekannte Seite';
         }
         
-        browserUrl.addEventListener('keypress', function(e) {
+        function getPageContent(url) {
+            if (url.includes('google.com')) {
+                return `
+                    <div style="text-align: center; margin-top: 50px;">
+                        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" style="width: 200px; margin-bottom: 30px;">
+                        <div style="max-width: 500px; margin: 0 auto;">
+                            <input type="text" style="width: 100%; padding: 15px; border: 1px solid #dfe1e5; border-radius: 24px; font-size: 16px; margin-bottom: 20px;" placeholder="Google-Suche">
+                            <div style="display: flex; gap: 10px; justify-content: center;">
+                                <button style="padding: 10px 20px; border: 1px solid #f8f9fa; background: #f8f9fa; border-radius: 4px; cursor: pointer;">Google-Suche</button>
+                                <button style="padding: 10px 20px; border: 1px solid #f8f9fa; background: #f8f9fa; border-radius: 4px; cursor: pointer;">Auf gut Glück!</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (url.includes('youtube.com')) {
+                return `
+                    <div>
+                        <div style="background: #ff0000; color: white; padding: 10px; text-align: center; margin-bottom: 20px;">
+                            <h2 style="margin: 0;">YouTube</h2>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div style="background: #f9f9f9; border-radius: 8px; padding: 10px;">
+                                <div style="background: #e0e0e0; height: 100px; border-radius: 4px; margin-bottom: 10px;"></div>
+                                <h3 style="margin: 0 0 5px 0; font-size: 14px;">Empfohlene Videos</h3>
+                                <p style="margin: 0; font-size: 12px; color: #666;">YouTube Inhalt</p>
+                            </div>
+                            <div style="background: #f9f9f9; border-radius: 8px; padding: 10px;">
+                                <div style="background: #e0e0e0; height: 100px; border-radius: 4px; margin-bottom: 10px;"></div>
+                                <h3 style="margin: 0 0 5px 0; font-size: 14px;">Trending</h3>
+                                <p style="margin: 0; font-size: 12px; color: #666;">Beliebte Videos</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <p>Willkommen auf ${url}</p>
+                    <p>Dies ist eine simulierte Browser-Ansicht. In einer echten Implementierung würde hier der tatsächliche Web-Inhalt angezeigt werden.</p>
+                    <div style="margin-top: 30px;">
+                        <h3>Schnelllinks:</h3>
+                        <ul>
+                            <li><a href="https://www.google.com" style="color: #1a73e8;">Google</a></li>
+                            <li><a href="https://www.youtube.com" style="color: #1a73e8;">YouTube</a></li>
+                            <li><a href="https://www.github.com" style="color: #1a73e8;">GitHub</a></li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+        
+        browserUrlInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 let url = this.value;
                 if (!url.startsWith('http')) {
                     url = 'https://' + url;
                 }
-                navigateToUrl(url);
+                loadBrowserPage(url);
             }
-        });
-        
-        browserSearch.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const query = this.value;
-                navigateToUrl(`https://google.com/search?q=${encodeURIComponent(query)}`);
-            }
-        });
-        
-        quickLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                const url = this.getAttribute('data-url');
-                navigateToUrl(url);
-            });
         });
         
         browserBack.addEventListener('click', function() {
             if (browserHistoryIndex > 0) {
                 browserHistoryIndex--;
-                navigateToUrl(browserHistory[browserHistoryIndex]);
+                loadBrowserPage(browserHistory[browserHistoryIndex]);
             }
         });
         
         browserForward.addEventListener('click', function() {
             if (browserHistoryIndex < browserHistory.length - 1) {
                 browserHistoryIndex++;
-                navigateToUrl(browserHistory[browserHistoryIndex]);
+                loadBrowserPage(browserHistory[browserHistoryIndex]);
             }
         });
         
         browserRefresh.addEventListener('click', function() {
-            navigateToUrl(browserHistory[browserHistoryIndex]);
+            loadBrowserPage(browserHistory[browserHistoryIndex]);
         });
         
         // Settings navigation
@@ -2830,7 +3267,11 @@
         });
         
         document.getElementById('about-settings').addEventListener('click', function() {
-            alert('PartexOS 10.1\n© 2023 Partex Technologies\nBuild: PXOS-10.1-20230515');
+            alert('PartexOS 10.1\n© 2023 Partex Technologies\nBuild: PXOS-10.1-20230515\nKernel: 5.15.0-partex\nSpeicher: 128GB / 256GB verfügbar');
+        });
+        
+        document.getElementById('app-permissions').addEventListener('click', function() {
+            alert('App-Berechtigungen:\n\n• Kamera: Erlaubt\n• Standort: Verweigert\n• Mikrofon: Erlaubt\n• Kontakte: Ausstehend\n• Benachrichtigungen: Erlaubt');
         });
         
         // Back button functionality
@@ -2847,7 +3288,6 @@
         toggles.forEach(toggle => {
             toggle.addEventListener('change', function() {
                 const id = this.id;
-                console.log(`${id} changed to: ${this.checked}`);
                 
                 // Add visual feedback
                 if (this.checked) {
@@ -2886,54 +3326,17 @@
             }
         });
         
-        // Camera functionality
-        takePhoto.addEventListener('click', function() {
-            this.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 100);
-            
-            // Simulate photo capture
-            const flash = document.createElement('div');
-            flash.style.position = 'absolute';
-            flash.style.top = '0';
-            flash.style.left = '0';
-            flash.style.width = '100%';
-            flash.style.height = '100%';
-            flash.style.background = 'white';
-            flash.style.opacity = '0';
-            flash.style.transition = 'opacity 0.3s';
-            cameraApp.querySelector('.camera-preview').appendChild(flash);
-            
-            setTimeout(() => {
-                flash.style.opacity = '0.8';
-            }, 10);
-            
-            setTimeout(() => {
-                flash.style.opacity = '0';
-            }, 100);
-            
-            setTimeout(() => {
-                cameraApp.querySelector('.camera-preview').removeChild(flash);
-            }, 400);
-            
-            // Show confirmation
-            setTimeout(() => {
-                alert('Foto aufgenommen!');
-            }, 500);
-        });
-        
-        // Music player functionality
-        playBtn.addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            if (isPlaying) {
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
-            } else {
-                icon.classList.remove('fa-play');
-                icon.classList.add('fa-pause');
+        // Home button functionality
+        homeButton.addEventListener('click', function() {
+            if (currentScreen !== 'home-screen' && currentScreen !== 'lock-screen') {
+                document.getElementById(currentScreen).classList.add('hidden');
+                homeScreen.classList.remove('hidden');
+                currentScreen = 'home-screen';
+            } else if (currentScreen === 'home-screen') {
+                homeScreen.classList.add('hidden');
+                lockScreen.classList.remove('hidden');
+                currentScreen = 'lock-screen';
             }
-            isPlaying = !isPlaying;
         });
         
         // Initialize
