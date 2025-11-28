@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PartexOS 10.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .phone-container {
+            width: 360px;
+            height: 700px;
+            background: #0f3460;
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+            border: 10px solid #1a1a2e;
+        }
+        
+        .status-bar {
+            height: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .screen {
+            height: calc(100% - 30px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            transition: transform 0.4s ease;
+        }
+        
+        .hidden {
+            transform: translateX(100%);
+        }
+        
+        .setup-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #e94560, #533483);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .setup-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .setup-desc {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        
+        .setup-form {
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #e94560, #533483);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .home-screen {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 20px;
+        }
+        
+        .time-display {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .time {
+            font-size: 48px;
+            font-weight: 300;
+        }
+        
+        .date {
+            font-size: 16px;
+            color: #ccc;
+        }
+        
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .app:hover {
+            transform: scale(1.1);
+        }
+        
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .app-name {
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .dock {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .dock-app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .app-screen {
+            background: #0f3460;
+        }
+        
+        .app-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .back-btn {
+            font-size: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        
+        .app-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .app-content {
+            padding: 20px;
+            height: calc(100% - 50px);
+            overflow-y: auto;
+        }
+        
+        .settings-item {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #e94560;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(45deg, #e94560, #533483);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .notification {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .notification-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .notification-text {
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .step {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 0 5px;
+        }
+        
+        .step.active {
+            background: #e94560;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="status-bar">
+            <div class="time-small">14:30</div>
+            <div class="battery">78%</div>
+        </div>
+        
+        <div class="screen">
+            <!-- Setup Page -->
+            <div class="page setup-page" id="setup-page">
+                <div class="logo">PartexOS</div>
+                <div class="setup-title">Willkommen bei PartexOS 10.0</div>
+                <div class="setup-desc">Richten Sie Ihr neues Betriebssystem ein</div>
+                
+                <div class="step-indicator">
+                    <div class="step active"></div>
+                    <div class="step"></div>
+                    <div class="step"></div>
+                    <div class="step"></div>
+                </div>
+                
+                <div class="setup-form">
+                    <div class="form-group">
+                        <label for="language">Sprache</label>
+                        <select id="language">
+                            <option>Deutsch</option>
+                            <option>English</option>
+                            <option>Français</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="wifi">WLAN Netzwerk</label>
+                        <select id="wifi">
+                            <option>Home-WLAN</option>
+                            <option>Office-Netzwerk</option>
+                            <option>Öffentliches WLAN</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="username">Benutzername</label>
+                        <input type="text" id="username" placeholder="Ihr Name">
+                    </div>
+                    
+                    <button class="btn" id="setup-next">Weiter</button>
+                </div>
+            </div>
+            
+            <!-- Home Screen -->
+            <div class="page home-screen hidden" id="home-screen">
+                <div class="time-display">
+                    <div class="time" id="current-time">14:30</div>
+                    <div class="date" id="current-date">Montag, 15. Mai</div>
+                </div>
+                
+                <div class="apps-grid">
+                    <div class="app" data-app="messages">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #3498db, #2980b9);">✉️</div>
+                        <div class="app-name">Nachrichten</div>
+                    </div>
+                    <div class="app" data-app="camera">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #e74c3c, #c0392b);">📷</div>
+                        <div class="app-name">Kamera</div>
+                    </div>
+                    <div class="app" data-app="gallery">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #9b59b6, #8e44ad);">🖼️</div>
+                        <div class="app-name">Galerie</div>
+                    </div>
+                    <div class="app" data-app="music">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #e67e22, #d35400);">🎵</div>
+                        <div class="app-name">Musik</div>
+                    </div>
+                    <div class="app" data-app="browser">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #1abc9c, #16a085);">🌐</div>
+                        <div class="app-name">Browser</div>
+                    </div>
+                    <div class="app" data-app="calendar">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #34495e, #2c3e50);">📅</div>
+                        <div class="app-name">Kalender</div>
+                    </div>
+                    <div class="app" data-app="maps">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #e74c3c, #c0392b);">🗺️</div>
+                        <div class="app-name">Karten</div>
+                    </div>
+                    <div class="app" data-app="settings">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #7f8c8d, #95a5a6);">⚙️</div>
+                        <div class="app-name">Einstellungen</div>
+                    </div>
+                </div>
+                
+                <div class="dock">
+                    <div class="dock-app" data-app="phone">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #2ecc71, #27ae60);">📞</div>
+                    </div>
+                    <div class="dock-app" data-app="messages">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #3498db, #2980b9);">✉️</div>
+                    </div>
+                    <div class="dock-app" data-app="camera">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #e74c3c, #c0392b);">📷</div>
+                    </div>
+                    <div class="dock-app" data-app="browser">
+                        <div class="app-icon" style="background: linear-gradient(45deg, #1abc9c, #16a085);">🌐</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings App -->
+            <div class="page app-screen hidden" id="settings-app">
+                <div class="app-header">
+                    <div class="back-btn">←</div>
+                    <div class="app-title">Einstellungen</div>
+                </div>
+                <div class="app-content">
+                    <div class="settings-item">
+                        <div>WLAN</div>
+                        <div class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </div>
+                    </div>
+                    <div class="settings-item">
+                        <div>Bluetooth</div>
+                        <div class="toggle">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </div>
+                    </div>
+                    <div class="settings-item">
+                        <div>Flugmodus</div>
+                        <div class="toggle">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </div>
+                    </div>
+                    <div class="settings-item">
+                        <div>Benachrichtigungen</div>
+                        <div>→</div>
+                    </div>
+                    <div class="settings-item">
+                        <div>Sounds</div>
+                        <div>→</div>
+                    </div>
+                    <div class="settings-item">
+                        <div>Display</div>
+                        <div>→</div>
+                    </div>
+                    <div class="settings-item">
+                        <div>Sicherheit</div>
+                        <div>→</div>
+                    </div>
+                    <div class="settings-item">
+                        <div>Konten</div>
+                        <div>→</div>
+                    </div>
+                    <div class="settings-item">
+                        <div>Systemupdate</div>
+                        <div>→</div>
+                    </div>
+                    <div class="settings-item">
+                        <div>Über PartexOS</div>
+                        <div>→</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Messages App -->
+            <div class="page app-screen hidden" id="messages-app">
+                <div class="app-header">
+                    <div class="back-btn">←</div>
+                    <div class="app-title">Nachrichten</div>
+                </div>
+                <div class="app-content">
+                    <div class="notification">
+                        <div class="notification-title">Max Mustermann</div>
+                        <div class="notification-text">Hallo! Wie geht's dir?</div>
+                    </div>
+                    <div class="notification">
+                        <div class="notification-title">Anna Schmidt</div>
+                        <div class="notification-text">Erinnerung: Meeting morgen um 10 Uhr</div>
+                    </div>
+                    <div class="notification">
+                        <div class="notification-title">Service-Nachricht</div>
+                        <div class="notification-text">Ihr PartexOS ist auf dem neuesten Stand</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const setupPage = document.getElementById('setup-page');
+        const homeScreen = document.getElementById('home-screen');
+        const settingsApp = document.getElementById('settings-app');
+        const messagesApp = document.getElementById('messages-app');
+        const setupNextBtn = document.getElementById('setup-next');
+        const backButtons = document.querySelectorAll('.back-btn');
+        const appIcons = document.querySelectorAll('.app, .dock-app');
+        const currentTimeEl = document.getElementById('current-time');
+        const currentDateEl = document.getElementById('current-date');
+        const progressBar = document.querySelector('.progress');
+        const steps = document.querySelectorAll('.step');
+        
+        let currentStep = 0;
+        
+        // Setup Process
+        setupNextBtn.addEventListener('click', function() {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                updateSetupProgress();
+            } else {
+                // Setup complete
+                setupPage.classList.add('hidden');
+                homeScreen.classList.remove('hidden');
+                updateDateTime();
+                setInterval(updateDateTime, 60000);
+            }
+        });
+        
+        function updateSetupProgress() {
+            steps.forEach((step, index) => {
+                if (index <= currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            // Update progress bar
+            const progress = ((currentStep + 1) / steps.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+        
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+            const date = now.toLocaleDateString('de-DE', { 
+                weekday: 'long', 
+                day: 'numeric', 
+                month: 'long' 
+            });
+            
+            currentTimeEl.textContent = time;
+            currentDateEl.textContent = date;
+            
+            // Update status bar time
+            document.querySelector('.time-small').textContent = time;
+        }
+        
+        // App navigation
+        appIcons.forEach(icon => {
+            icon.addEventListener('click', function() {
+                const appName = this.getAttribute('data-app');
+                
+                if (appName === 'settings') {
+                    homeScreen.classList.add('hidden');
+                    settingsApp.classList.remove('hidden');
+                } else if (appName === 'messages') {
+                    homeScreen.classList.add('hidden');
+                    messagesApp.classList.remove('hidden');
+                }
+                // Add more app handlers here
+            });
+        });
+        
+        // Back button functionality
+        backButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const currentApp = this.closest('.page');
+                currentApp.classList.add('hidden');
+                homeScreen.classList.remove('hidden');
+            });
+        });
+        
+        // Initialize
+        updateDateTime();
+        updateSetupProgress();
+        
+        // Simulate battery drain
+        setInterval(() => {
+            const batteryEl = document.querySelector('.battery');
+            let battery = parseInt(batteryEl.textContent);
+            if (battery > 10) {
+                battery -= 1;
+                batteryEl.textContent = `${battery}%`;
+            }
+        }, 60000);
+    </script>
+</body>
+</html>
