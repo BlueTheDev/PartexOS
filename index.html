@@ -2,7 +2,8 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>PartexOS 10.2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,6 +14,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
         }
         
         :root {
@@ -40,6 +42,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            touch-action: manipulation;
         }
         
         .phone-container {
@@ -69,6 +72,7 @@
             width: 100%;
             height: 100%;
             transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
         }
         
         .hidden {
@@ -76,7 +80,7 @@
             pointer-events: none;
         }
         
-        /* Control Center - iPhone Style */
+        /* Control Center - Jetzt mit Swipe von oben */
         .control-center {
             position: absolute;
             top: -600px;
@@ -112,6 +116,7 @@
             cursor: pointer;
             transition: var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            -webkit-tap-highlight-color: transparent;
         }
         
         .control-item.active {
@@ -380,18 +385,18 @@
             margin-top: 10px;
             transition: var(--transition);
             backdrop-filter: var(--blur);
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .btn:hover {
+        .btn:active {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 102, 255, 0.3);
         }
         
         .btn-secondary {
             background: var(--glass);
         }
         
-        .btn-secondary:hover {
+        .btn-secondary:active {
             background: rgba(255, 255, 255, 0.2);
         }
         
@@ -617,6 +622,7 @@
             border-radius: 18px;
             padding: 8px 5px;
             animation: fadeIn 0.5s ease;
+            -webkit-tap-highlight-color: transparent;
         }
         
         @keyframes fadeIn {
@@ -624,9 +630,8 @@
             to { opacity: 1; transform: scale(1); }
         }
         
-        .app:hover {
-            transform: translateY(-5px);
-            background: var(--glass);
+        .app:active {
+            transform: scale(0.95);
         }
         
         .app-icon {
@@ -641,10 +646,6 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             box-shadow: 0 5px 15px rgba(0, 102, 255, 0.3);
             transition: var(--transition);
-        }
-        
-        .app:hover .app-icon {
-            transform: scale(1.1);
         }
         
         .app-name {
@@ -696,9 +697,10 @@
             border-radius: 12px;
             transition: var(--transition);
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .dock-app:hover {
+        .dock-app:active {
             background: rgba(255, 255, 255, 0.1);
         }
         
@@ -736,10 +738,11 @@
             transition: var(--transition);
             position: relative;
             z-index: 10;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .home-button:hover {
-            transform: scale(1.1);
+        .home-button:active {
+            transform: scale(0.95);
             background: rgba(255, 255, 255, 0.15);
         }
         
@@ -776,9 +779,10 @@
             cursor: pointer;
             transition: var(--transition);
             font-size: 20px;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .back-button:hover {
+        .back-button:active {
             background: var(--glass);
         }
         
@@ -794,7 +798,7 @@
             padding: 20px;
         }
         
-        /* Settings App */
+        /* Settings App - ERWEITERT */
         .settings-section {
             margin-bottom: 25px;
         }
@@ -820,9 +824,10 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: var(--transition);
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .settings-item:hover {
+        .settings-item:active {
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
         }
@@ -900,7 +905,7 @@
             transform: translateX(24px);
         }
         
-        /* Camera App */
+        /* Camera App - FIXED */
         .camera-preview {
             width: 100%;
             height: 100%;
@@ -917,27 +922,6 @@
             justify-content: center;
             align-items: center;
             position: relative;
-        }
-        
-        .camera-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-        
-        .camera-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 25% 25%;
         }
         
         .camera-controls {
@@ -962,10 +946,11 @@
             cursor: pointer;
             transition: var(--transition);
             border: 3px solid rgba(255, 255, 255, 0.3);
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .camera-btn:hover {
-            transform: scale(1.1);
+        .camera-btn:active {
+            transform: scale(0.9);
         }
         
         .camera-btn i {
@@ -987,225 +972,14 @@
             align-items: center;
             cursor: pointer;
             transition: var(--transition);
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .camera-switch:hover {
+        .camera-switch:active {
             background: rgba(255, 255, 255, 0.2);
         }
         
-        /* Messages App */
-        .conversation-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .conversation {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: var(--glass);
-            border-radius: 15px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .conversation:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-        
-        .conversation-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        
-        .conversation-content {
-            flex: 1;
-        }
-        
-        .conversation-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .conversation-preview {
-            font-size: 14px;
-            opacity: 0.7;
-        }
-        
-        .conversation-time {
-            font-size: 12px;
-            opacity: 0.5;
-        }
-        
-        /* Phone App */
-        .dialer {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .phone-number {
-            background: var(--glass);
-            border-radius: 15px;
-            padding: 15px;
-            font-size: 24px;
-            text-align: center;
-            letter-spacing: 2px;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .dialpad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-        
-        .dial-key {
-            background: var(--glass);
-            border-radius: 50%;
-            width: 70px;
-            height: 70px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: var(--transition);
-            margin: 0 auto;
-        }
-        
-        .dial-key:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.1);
-        }
-        
-        .dial-number {
-            font-size: 24px;
-            font-weight: 600;
-        }
-        
-        .dial-letters {
-            font-size: 10px;
-            opacity: 0.7;
-            margin-top: 2px;
-        }
-        
-        /* Music App */
-        .music-player {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-        }
-        
-        .album-art {
-            width: 250px;
-            height: 250px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 60px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            animation: rotateAlbum 20s linear infinite;
-        }
-        
-        @keyframes rotateAlbum {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .song-info {
-            text-align: center;
-        }
-        
-        .song-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .song-artist {
-            font-size: 16px;
-            opacity: 0.8;
-        }
-        
-        .progress-container {
-            width: 100%;
-            margin: 20px 0;
-        }
-        
-        .progress-time {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            opacity: 0.7;
-            margin-bottom: 5px;
-        }
-        
-        .music-progress {
-            height: 4px;
-            background: var(--glass);
-            border-radius: 2px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        
-        .music-progress-bar {
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            width: 30%;
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
-        
-        .music-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-        
-        .control-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 25px;
-            background: var(--glass);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.1);
-        }
-        
-        .play-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 30px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-        }
-        
-        /* Gallery App */
+        /* Gallery App - FIXED WITH ZOOM */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1223,62 +997,21 @@
             transition: var(--transition);
             cursor: pointer;
             overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
         }
         
-        .gallery-item:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.05);
+        .gallery-item:active img {
+            transform: scale(1.1);
         }
         
-        /* Calendar App */
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .calendar-month {
-            font-size: 20px;
-            font-weight: 600;
-        }
-        
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-        }
-        
-        .calendar-day {
-            text-align: center;
-            padding: 10px 5px;
-            font-size: 14px;
-            opacity: 0.7;
-        }
-        
-        .calendar-date {
-            text-align: center;
-            padding: 10px 5px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .calendar-date:hover {
-            background: var(--glass);
-        }
-        
-        .calendar-date.active {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-        }
-        
-        /* Browser App */
+        /* Browser App - FIXED WITH DOWNLOADS */
         .browser-url {
             background: var(--glass);
             border-radius: 15px;
@@ -1289,10 +1022,6 @@
             gap: 10px;
         }
         
-        .browser-url i {
-            opacity: 0.7;
-        }
-        
         .browser-url input {
             background: transparent;
             border: none;
@@ -1300,6 +1029,7 @@
             font-size: 16px;
             width: 100%;
             outline: none;
+            -webkit-appearance: none;
         }
         
         .browser-content {
@@ -1328,15 +1058,11 @@
             padding: 8px 15px;
             border-radius: 8px;
             transition: var(--transition);
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .browser-toolbar button:hover:not(:disabled) {
+        .browser-toolbar button:active:not(:disabled) {
             background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .browser-toolbar button:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
         }
         
         .browser-page {
@@ -1347,68 +1073,22 @@
             color: #333;
         }
         
-        .browser-page h1 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #1a1a1a;
-        }
-        
-        .browser-page p {
-            margin-bottom: 15px;
-            line-height: 1.5;
-            color: #666;
-        }
-        
-        .browser-search {
-            background: #f5f5f5;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .browser-search input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: #333;
-            font-size: 16px;
-            outline: none;
-        }
-        
-        .quick-links {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        
-        .quick-link {
-            background: #f8f8f8;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
+        .download-link {
+            display: inline-block;
+            background: #1a73e8;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px 0;
             cursor: pointer;
-            transition: var(--transition);
-            border: 1px solid #e0e0e0;
         }
         
-        .quick-link:hover {
-            background: #e8e8e8;
-            transform: translateY(-2px);
+        .download-link:active {
+            background: #0d5bba;
         }
         
-        .quick-link i {
-            font-size: 24px;
-            margin-bottom: 8px;
-            opacity: 0.8;
-            color: #333;
-        }
-        
-        .quick-link span {
-            font-size: 12px;
-            color: #666;
-        }
-        
-        /* PartexStore App */
+        /* PartexStore App - ERWEITERT */
         .store-categories {
             display: flex;
             gap: 10px;
@@ -1426,10 +1106,15 @@
             cursor: pointer;
             transition: var(--transition);
             white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .category-btn.active {
             background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+        
+        .category-btn:active {
+            transform: scale(0.95);
         }
         
         .store-grid {
@@ -1444,9 +1129,10 @@
             padding: 15px;
             transition: var(--transition);
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .store-item:hover {
+        .store-item:active {
             transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.15);
         }
@@ -1484,192 +1170,100 @@
             cursor: pointer;
             transition: var(--transition);
             width: 100%;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .store-btn:hover {
+        .store-btn:active {
             background: var(--secondary);
         }
         
-        /* PixelPlay Game */
-        .game-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            background: var(--glass);
-            padding: 10px;
-            border-radius: 10px;
-        }
-        
-        .game-cell {
-            width: 80px;
-            height: 80px;
-            background: var(--dark);
-            border-radius: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .game-cell:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .game-info {
-            text-align: center;
-        }
-        
-        .game-score {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .game-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .game-btn:hover {
-            background: var(--secondary);
-        }
-        
-        /* PixelCraft AI */
-        .ai-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .ai-canvas {
-            width: 300px;
-            height: 300px;
-            background: var(--glass);
-            border-radius: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        
-        .ai-controls {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .ai-btn {
-            background: var(--glass);
-            border: none;
-            color: var(--light);
-            padding: 10px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .ai-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .ai-btn.primary {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-        }
-        
-        /* Permission Dialog */
-        .permission-dialog {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--dark);
-            border-radius: 20px;
-            padding: 25px;
-            width: 300px;
-            z-index: 2000;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: dialogAppear 0.3s ease;
-        }
-        
-        @keyframes dialogAppear {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-        
-        .permission-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .permission-message {
-            font-size: 14px;
-            opacity: 0.8;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-        
-        .permission-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .permission-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .permission-btn.allow {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .permission-btn.deny {
-            background: var(--glass);
-            color: white;
-        }
-        
-        /* Battery Animation */
-        @keyframes batteryDrain {
-            0% { width: 85%; }
-            100% { width: 72%; }
-        }
-        
-        .battery-level {
-            width: 85%;
+        /* Image Modal for Gallery Zoom */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: var(--light);
-            border-radius: 2px;
-            animation: batteryDrain 30s linear infinite;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-image {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-modal.active .modal-image {
+            transform: scale(1);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Wallpaper Selection */
+        .wallpaper-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .wallpaper-item {
+            aspect-ratio: 2/3;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .wallpaper-item.active {
+            border-color: var(--primary);
+        }
+        
+        .wallpaper-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .wallpaper-item:active {
+            transform: scale(0.95);
+        }
+        
+        /* Software Update Styles */
+        .update-available {
+            background: var(--success) !important;
+        }
+        
+        .developer-options {
+            background: var(--warning) !important;
         }
         
         /* Notch */
@@ -1685,13 +1279,33 @@
             border-bottom-right-radius: 20px;
             z-index: 101;
         }
+        
+        /* Battery Animation */
+        @keyframes batteryDrain {
+            0% { width: 85%; }
+            100% { width: 72%; }
+        }
+        
+        .battery-level {
+            width: 85%;
+            height: 100%;
+            background: var(--light);
+            border-radius: 2px;
+            animation: batteryDrain 30s linear infinite;
+        }
     </style>
 </head>
 <body>
     <div class="phone-container">
         <div class="notch"></div>
         
-        <!-- Control Center - iPhone Style -->
+        <!-- Image Modal for Gallery Zoom -->
+        <div class="image-modal" id="image-modal">
+            <div class="close-modal" id="close-modal">&times;</div>
+            <img class="modal-image" id="modal-image" src="" alt="Vergrößertes Bild">
+        </div>
+        
+        <!-- Control Center - Jetzt mit Swipe von oben -->
         <div class="control-center" id="control-center">
             <div class="control-grid">
                 <div class="control-item" data-control="wifi">
@@ -2181,7 +1795,7 @@
                 </div>
             </div>
             
-            <!-- Settings App -->
+            <!-- Settings App - ERWEITERT -->
             <div class="page app-screen hidden" id="settings-app">
                 <div class="app-header">
                     <div class="back-button">
@@ -2190,6 +1804,64 @@
                     <div class="app-title">Einstellungen</div>
                 </div>
                 <div class="app-content">
+                    <div class="settings-section">
+                        <div class="section-title">Geräteinformationen</div>
+                        <div class="settings-item" id="device-info">
+                            <div class="left">
+                                <div class="settings-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div>
+                                    <div class="settings-text">Partex 10 Pro</div>
+                                    <div class="settings-desc">8GB RAM / 256GB ROM • PartexOS 10.2</div>
+                                </div>
+                            </div>
+                            <div>→</div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="section-title">System</div>
+                        <div class="settings-item update-available" id="update-settings">
+                            <div class="left">
+                                <div class="settings-icon">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <div>
+                                    <div class="settings-text">Software-Update</div>
+                                    <div class="settings-desc">PartexOS 10.2.1 verfügbar</div>
+                                </div>
+                            </div>
+                            <div>→</div>
+                        </div>
+                        
+                        <div class="settings-item developer-options" id="developer-options">
+                            <div class="left">
+                                <div class="settings-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div>
+                                    <div class="settings-text">Developer Options</div>
+                                    <div class="settings-desc">Erweiterte Einstellungen</div>
+                                </div>
+                            </div>
+                            <div>→</div>
+                        </div>
+                        
+                        <div class="settings-item" id="wallpaper-settings">
+                            <div class="left">
+                                <div class="settings-icon">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                                <div>
+                                    <div class="settings-text">Hintergrundbild</div>
+                                    <div class="settings-desc">Homescreen und Sperrbildschirm</div>
+                                </div>
+                            </div>
+                            <div>→</div>
+                        </div>
+                    </div>
+                    
                     <div class="settings-section">
                         <div class="section-title">Verbindungen</div>
                         <div class="settings-item">
@@ -2221,117 +1893,6 @@
                                 <input type="checkbox" id="bluetooth-toggle">
                                 <span class="slider"></span>
                             </div>
-                        </div>
-                        <div class="settings-item">
-                            <div class="left">
-                                <div class="settings-icon">
-                                    <i class="fas fa-signal"></i>
-                                </div>
-                                <div>
-                                    <div class="settings-text">Mobilfunknetz</div>
-                                    <div class="settings-desc">PartexMobile</div>
-                                </div>
-                            </div>
-                            <div class="toggle">
-                                <input type="checkbox" id="cellular-toggle" checked>
-                                <span class="slider"></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="settings-section">
-                        <div class="section-title">Gerät</div>
-                        <div class="settings-item" id="notifications-settings">
-                            <div class="left">
-                                <div class="settings-icon">
-                                    <i class="fas fa-bell"></i>
-                                </div>
-                                <div>
-                                    <div class="settings-text">Benachrichtigungen</div>
-                                    <div class="settings-desc">Töne und Vibration</div>
-                                </div>
-                            </div>
-                            <div>→</div>
-                        </div>
-                        <div class="settings-item" id="display-settings">
-                            <div class="left">
-                                <div class="settings-icon">
-                                    <i class="fas fa-display"></i>
-                                </div>
-                                <div>
-                                    <div class="settings-text">Display</div>
-                                    <div class="settings-desc">Helligkeit und Schlafmodus</div>
-                                </div>
-                            </div>
-                            <div>→</div>
-                        </div>
-                        <div class="settings-item" id="sounds-settings">
-                            <div class="left">
-                                <div class="settings-icon">
-                                    <i class="fas fa-volume-up"></i>
-                                </div>
-                                <div>
-                                    <div class="settings-text">Sounds</div>
-                                    <div class="settings-desc">Lautstärke und Klingeltöne</div>
-                                </div>
-                            </div>
-                            <div>→</div>
-                        </div>
-                        <div class="settings-item" id="security-settings">
-                            <div class="left">
-                                <div class="settings-icon">
-                                    <i class="fas fa-shield-alt"></i>
-                                </div>
-                                <div>
-                                    <div class="settings-text">Sicherheit</div>
-                                    <div class="settings-desc">Sperrbildschirm und Gesichtserkennung</div>
-                                </div>
-                            </div>
-                            <div>→</div>
-                        </div>
-                    </div>
-                    
-                    <div class="settings-section">
-                        <div class="section-title">Apps & Berechtigungen</div>
-                        <div class="settings-item" id="app-permissions">
-                            <div class="left">
-                                <div class="settings-icon">
-                                    <i class="fas fa-mobile-alt"></i>
-                                </div>
-                                <div>
-                                    <div class="settings-text">App-Berechtigungen</div>
-                                    <div class="settings-desc">Kamera, Standort, Mikrofon</div>
-                                </div>
-                            </div>
-                            <div>→</div>
-                        </div>
-                    </div>
-                    
-                    <div class="settings-section">
-                        <div class="section-title">System</div>
-                        <div class="settings-item" id="update-settings">
-                            <div class="left">
-                                <div class="settings-icon">
-                                    <i class="fas fa-sync-alt"></i>
-                                </div>
-                                <div>
-                                    <div class="settings-text">Systemupdate</div>
-                                    <div class="settings-desc">PartexOS 10.2 verfügbar</div>
-                                </div>
-                            </div>
-                            <div>→</div>
-                        </div>
-                        <div class="settings-item" id="about-settings">
-                            <div class="left">
-                                <div class="settings-icon">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-                                <div>
-                                    <div class="settings-text">Über PartexOS</div>
-                                    <div class="settings-desc">Version 10.2</div>
-                                </div>
-                            </div>
-                            <div>→</div>
                         </div>
                     </div>
                 </div>
@@ -2430,7 +1991,7 @@
                 </div>
             </div>
             
-            <!-- Camera App -->
+            <!-- Camera App - FIXED -->
             <div class="page app-screen hidden" id="camera-app">
                 <div class="app-header">
                     <div class="back-button">
@@ -2457,7 +2018,7 @@
                 </div>
             </div>
             
-            <!-- Gallery App -->
+            <!-- Gallery App - FIXED WITH ZOOM -->
             <div class="page app-screen hidden" id="gallery-app">
                 <div class="app-header">
                     <div class="back-button">
@@ -2467,29 +2028,29 @@
                 </div>
                 <div class="app-content">
                     <div class="gallery-grid">
-                        <div class="gallery-item">
+                        <div class="gallery-item" data-image="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=400">
                             <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=150" alt="Buch">
                         </div>
-                        <div class="gallery-item">
+                        <div class="gallery-item" data-image="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400">
                             <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=150" alt="Bücher">
                         </div>
-                        <div class="gallery-item">
+                        <div class="gallery-item" data-image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400">
                             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" alt="Portrait">
                         </div>
-                        <div class="gallery-item">
+                        <div class="gallery-item" data-image="https://images.unsplash.com/photo-1543332164-6e82f355badc?w=400">
                             <img src="https://images.unsplash.com/photo-1543332164-6e82f355badc?w=150" alt="Natur">
                         </div>
-                        <div class="gallery-item">
+                        <div class="gallery-item" data-image="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400">
                             <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=150" alt="Stadt">
                         </div>
-                        <div class="gallery-item">
+                        <div class="gallery-item" data-image="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400">
                             <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=150" alt="Berg">
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- PartexStore App -->
+            <!-- PartexStore App - ERWEITERT -->
             <div class="page app-screen hidden" id="partexstore-app">
                 <div class="app-header">
                     <div class="back-button">
@@ -2504,6 +2065,8 @@
                         <button class="category-btn">Apps</button>
                         <button class="category-btn">Kreativ</button>
                         <button class="category-btn">Produktivität</button>
+                        <button class="category-btn">Sozial</button>
+                        <button class="category-btn">Tools</button>
                     </div>
                     
                     <div class="store-grid">
@@ -2540,6 +2103,42 @@
                             </div>
                             <div class="store-name">PhotoEdit Pro</div>
                             <div class="store-desc">Bildbearbeitung</div>
+                            <button class="store-btn">Installieren</button>
+                        </div>
+                        
+                        <div class="store-item">
+                            <div class="store-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="store-name">VideoStudio</div>
+                            <div class="store-desc">Videos bearbeiten</div>
+                            <button class="store-btn">Installieren</button>
+                        </div>
+                        
+                        <div class="store-item">
+                            <div class="store-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="store-name">Finance Pro</div>
+                            <div class="store-desc">Finanzen verwalten</div>
+                            <button class="store-btn">Installieren</button>
+                        </div>
+                        
+                        <div class="store-item">
+                            <div class="store-icon">
+                                <i class="fas fa-cloud-sun"></i>
+                            </div>
+                            <div class="store-name">Weather Plus</div>
+                            <div class="store-desc">Wettervorhersage</div>
+                            <button class="store-btn">Installieren</button>
+                        </div>
+                        
+                        <div class="store-item">
+                            <div class="store-icon">
+                                <i class="fas fa-newspaper"></i>
+                            </div>
+                            <div class="store-name">News Hub</div>
+                            <div class="store-desc">Nachrichten lesen</div>
                             <button class="store-btn">Installieren</button>
                         </div>
                     </div>
@@ -2626,7 +2225,7 @@
                 </div>
             </div>
             
-            <!-- Browser App -->
+            <!-- Browser App - FIXED WITH DOWNLOADS -->
             <div class="page app-screen hidden" id="browser-app">
                 <div class="app-header">
                     <div class="back-button">
@@ -2637,7 +2236,7 @@
                 <div class="app-content">
                     <div class="browser-url">
                         <i class="fas fa-lock" id="browser-security-icon"></i>
-                        <input type="text" id="browser-url-input" value="https://www.google.com" placeholder="URL eingeben oder suchen">
+                        <input type="text" id="browser-url-input" value="https://www.partexos.com" placeholder="URL eingeben oder suchen">
                     </div>
                     <div class="browser-content">
                         <div class="browser-toolbar">
@@ -2645,12 +2244,166 @@
                             <button id="browser-forward" disabled><i class="fas fa-arrow-right"></i></button>
                             <button id="browser-refresh"><i class="fas fa-redo"></i></button>
                             <button id="browser-share"><i class="fas fa-share"></i></button>
-                            <button id="browser-bookmarks"><i class="fas fa-bookmark"></i></button>
+                            <button id="browser-downloads"><i class="fas fa-download"></i></button>
                         </div>
                         <div class="browser-page" id="browser-page">
                             <!-- Browser content will be loaded here -->
                         </div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Software Update Screen -->
+            <div class="page app-screen hidden" id="update-app">
+                <div class="app-header">
+                    <div class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="app-title">Software-Update</div>
+                </div>
+                <div class="app-content">
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 48px; color: var(--success); margin-bottom: 20px;">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3>PartexOS 10.2.1 verfügbar</h3>
+                        <p style="margin: 15px 0; opacity: 0.8;">Dieses Update enthält neue Funktionen und wichtige Sicherheitsupdates.</p>
+                        
+                        <div style="background: var(--glass); border-radius: 15px; padding: 20px; margin: 20px 0;">
+                            <h4>Update-Details:</h4>
+                            <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                                <li>Neue Kamera-Features</li>
+                                <li>Verbesserte Batterieleistung</li>
+                                <li>Sicherheits-Patches</li>
+                                <li>Neue PartexMoji</li>
+                                <li>Developer Options hinzugefügt</li>
+                                <li>Erweiterter PartexStore</li>
+                                <li>Hintergrundbilder Auswahl</li>
+                            </ul>
+                            <p style="text-align: left; margin-top: 10px;"><strong>Größe:</strong> 347 MB</p>
+                        </div>
+                        
+                        <button class="btn" id="start-update" style="background: var(--success);">Jetzt installieren</button>
+                        <button class="btn btn-secondary" id="schedule-update">Später installieren</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Developer Options Screen -->
+            <div class="page app-screen hidden" id="developer-app">
+                <div class="app-header">
+                    <div class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="app-title">Developer Options</div>
+                </div>
+                <div class="app-content">
+                    <div class="settings-section">
+                        <div class="section-title">Debugging</div>
+                        <div class="settings-item">
+                            <div class="left">
+                                <div class="settings-icon">
+                                    <i class="fas fa-bug"></i>
+                                </div>
+                                <div>
+                                    <div class="settings-text">USB-Debugging</div>
+                                    <div class="settings-desc">Debugging über USB erlauben</div>
+                                </div>
+                            </div>
+                            <div class="toggle">
+                                <input type="checkbox" id="usb-debugging">
+                                <span class="slider"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-item">
+                            <div class="left">
+                                <div class="settings-icon">
+                                    <i class="fas fa-window-restore"></i>
+                                </div>
+                                <div>
+                                    <div class="settings-text">Animationsskala</div>
+                                    <div class="settings-desc">Fensteranimation skalieren</div>
+                                </div>
+                            </div>
+                            <div>1x</div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="section-title">Netzwerk</div>
+                        <div class="settings-item">
+                            <div class="left">
+                                <div class="settings-icon">
+                                    <i class="fas fa-network-wired"></i>
+                                </div>
+                                <div>
+                                    <div class="settings-text">Mobile Daten immer aktiv</div>
+                                    <div class="settings-desc">Auch wenn WLAN verfügbar ist</div>
+                                </div>
+                            </div>
+                            <div class="toggle">
+                                <input type="checkbox" id="mobile-data-always">
+                                <span class="slider"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="section-title">Erweitert</div>
+                        <div class="settings-item">
+                            <div class="left">
+                                <div class="settings-icon">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <div>
+                                    <div class="settings-text">Dark Mode erzwingen</div>
+                                    <div class="settings-desc">Für alle Apps</div>
+                                </div>
+                            </div>
+                            <div class="toggle">
+                                <input type="checkbox" id="force-dark-mode">
+                                <span class="slider"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wallpaper Selection Screen -->
+            <div class="page app-screen hidden" id="wallpaper-app">
+                <div class="app-header">
+                    <div class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="app-title">Hintergrundbild</div>
+                </div>
+                <div class="app-content">
+                    <div class="settings-section">
+                        <div class="section-title">Vorgeschlagen</div>
+                        <div class="wallpaper-grid">
+                            <div class="wallpaper-item active" data-wallpaper="default">
+                                <img src="https://images.unsplash.com/photo-1505506874110-6a7a69069a08?w=200" alt="Standard">
+                            </div>
+                            <div class="wallpaper-item" data-wallpaper="nature">
+                                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=200" alt="Natur">
+                            </div>
+                            <div class="wallpaper-item" data-wallpaper="abstract">
+                                <img src="https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=200" alt="Abstrakt">
+                            </div>
+                            <div class="wallpaper-item" data-wallpaper="gradient">
+                                <img src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=200" alt="Gradient">
+                            </div>
+                            <div class="wallpaper-item" data-wallpaper="city">
+                                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=200" alt="Stadt">
+                            </div>
+                            <div class="wallpaper-item" data-wallpaper="space">
+                                <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=200" alt="Weltraum">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" id="apply-wallpaper" style="margin-top: 20px;">Hintergrund anwenden</button>
                 </div>
             </div>
         </div>
@@ -2683,6 +2436,9 @@
         const pixelcraftApp = document.getElementById('pixelcraft-app');
         const emojisApp = document.getElementById('emojis-app');
         const browserApp = document.getElementById('browser-app');
+        const updateApp = document.getElementById('update-app');
+        const developerApp = document.getElementById('developer-app');
+        const wallpaperApp = document.getElementById('wallpaper-app');
         const homeButton = document.getElementById('home-button');
         const navBar = document.getElementById('nav-bar');
         const controlCenter = document.getElementById('control-center');
@@ -2709,6 +2465,7 @@
         const browserBack = document.getElementById('browser-back');
         const browserForward = document.getElementById('browser-forward');
         const browserRefresh = document.getElementById('browser-refresh');
+        const browserDownloads = document.getElementById('browser-downloads');
         const browserSecurityIcon = document.getElementById('browser-security-icon');
         const gameBoard = document.getElementById('game-board');
         const gameCells = document.querySelectorAll('.game-cell');
@@ -2718,6 +2475,18 @@
         const aiCanvas = document.getElementById('ai-canvas');
         const aiGenerate = document.getElementById('ai-generate');
         const aiSave = document.getElementById('ai-save');
+        const imageModal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const closeModal = document.getElementById('close-modal');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const updateSettings = document.getElementById('update-settings');
+        const developerOptions = document.getElementById('developer-options');
+        const wallpaperSettings = document.getElementById('wallpaper-settings');
+        const wallpaperItems = document.querySelectorAll('.wallpaper-item');
+        const applyWallpaper = document.getElementById('apply-wallpaper');
+        const startUpdate = document.getElementById('start-update');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const storeItems = document.querySelectorAll('.store-item');
         
         // Current screen state
         let currentScreen = 'boot-screen';
@@ -2725,7 +2494,7 @@
         let phoneNumberValue = '';
         let isSetupComplete = false;
         let controlCenterOpen = false;
-        let browserHistory = ['https://www.google.com'];
+        let browserHistory = ['https://www.partexos.com'];
         let browserHistoryIndex = 0;
         let cameraPermission = false;
         let currentPlayer = 'X';
@@ -2733,6 +2502,10 @@
         let gameActive = true;
         let score = 0;
         let galleryImages = [];
+        let downloads = [];
+        let currentWallpaper = 'default';
+        let touchStartY = 0;
+        let touchEndY = 0;
         
         // Start boot process
         startBootProcess();
@@ -2751,7 +2524,7 @@
                         currentScreen = 'welcome-screen';
                     }, 500);
                 }
-            }, 200); // 20 seconds total
+            }, 200);
         }
         
         // Setup navigation
@@ -2850,7 +2623,7 @@
                         navBar.classList.remove('hidden');
                     }, 1000);
                 }
-            }, 60); // 1 minute total
+            }, 60);
         }
         
         // Update date and time
@@ -2867,7 +2640,7 @@
             dateElements.forEach(el => el.textContent = date);
         }
         
-        // Control Center functionality - iPhone style from top
+        // Control Center functionality - Swipe von oben
         function toggleControlCenter() {
             if (controlCenterOpen) {
                 controlCenter.classList.remove('active');
@@ -2877,6 +2650,27 @@
                 controlCenterOpen = true;
             }
         }
+        
+        // Swipe detection for Control Center
+        screen.addEventListener('touchstart', e => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+        
+        screen.addEventListener('touchend', e => {
+            if (!isSetupComplete) return;
+            
+            touchEndY = e.changedTouches[0].screenY;
+            
+            // Swipe from top edge to open control center
+            if (touchStartY < 100 && touchEndY > touchStartY + 100) {
+                toggleControlCenter();
+            }
+            
+            // Swipe down to close control center
+            if (controlCenterOpen && touchStartY > 100 && touchEndY < touchStartY - 100) {
+                toggleControlCenter();
+            }
+        });
         
         // Control items functionality
         controlItems.forEach(item => {
@@ -2959,30 +2753,6 @@
             unlockHandle.style.transform = 'translateY(0)';
         }
         
-        // Control Center swipe from top
-        let touchStartY = 0;
-        let touchEndY = 0;
-        
-        screen.addEventListener('touchstart', e => {
-            touchStartY = e.changedTouches[0].screenY;
-        });
-        
-        screen.addEventListener('touchend', e => {
-            if (!isSetupComplete) return;
-            
-            touchEndY = e.changedTouches[0].screenY;
-            
-            // Swipe from top edge to open control center
-            if (touchStartY < 100 && touchEndY > touchStartY + 100) {
-                toggleControlCenter();
-            }
-            
-            // Swipe down to close control center
-            if (controlCenterOpen && touchStartY > 100 && touchEndY < touchStartY - 100) {
-                toggleControlCenter();
-            }
-        });
-        
         // App navigation
         appIcons.forEach(icon => {
             icon.addEventListener('click', function() {
@@ -3028,9 +2798,28 @@
             } else if (appName === 'browser') {
                 browserApp.classList.remove('hidden');
                 currentScreen = 'browser-app';
-                loadBrowserPage('https://www.google.com');
+                loadBrowserPage('https://www.partexos.com');
             }
         }
+        
+        // Gallery Image Zoom
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const imageUrl = this.getAttribute('data-image');
+                modalImage.src = imageUrl;
+                imageModal.classList.add('active');
+            });
+        });
+        
+        closeModal.addEventListener('click', function() {
+            imageModal.classList.remove('active');
+        });
+        
+        imageModal.addEventListener('click', function(e) {
+            if (e.target === imageModal) {
+                imageModal.classList.remove('active');
+            }
+        });
         
         // Camera permission dialog
         function showCameraPermissionDialog() {
@@ -3146,16 +2935,41 @@
         
         function getPageTitle(url) {
             const titles = {
+                'https://www.partexos.com': 'PartexOS Startseite',
                 'https://www.google.com': 'Google',
                 'https://www.youtube.com': 'YouTube',
-                'https://www.github.com': 'GitHub',
-                'https://partexos.com': 'PartexOS Startseite'
+                'https://www.github.com': 'GitHub'
             };
             return titles[url] || 'Unbekannte Seite';
         }
         
         function getPageContent(url) {
-            if (url.includes('google.com')) {
+            if (url.includes('partexos.com')) {
+                return `
+                    <div style="text-align: center;">
+                        <h2>Willkommen bei PartexOS</h2>
+                        <p>Ihrem neuen mobilen Betriebssystem.</p>
+                        
+                        <div style="margin: 30px 0;">
+                            <h3>Downloads verfügbar:</h3>
+                            <div class="download-link" data-file="PartexWallpapers.zip">Partex Wallpapers Pack</div>
+                            <div class="download-link" data-file="PartexSounds.mp3">Partex Klingeltöne</div>
+                            <div class="download-link" data-file="PartexMojiPack.zip">PartexMoji Erweiterung</div>
+                        </div>
+                        
+                        <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; margin-top: 20px;">
+                            <h4>Partex 10 Pro Spezifikationen:</h4>
+                            <ul style="text-align: left;">
+                                <li>8GB RAM / 256GB ROM</li>
+                                <li>PartexOS Version 10.2</li>
+                                <li>6.7" AMOLED Display</li>
+                                <li>Triple-Kamera System</li>
+                                <li>5000mAh Batterie</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            } else if (url.includes('google.com')) {
                 return `
                     <div style="text-align: center; margin-top: 50px;">
                         <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" style="width: 200px; margin-bottom: 30px;">
@@ -3168,41 +2982,44 @@
                         </div>
                     </div>
                 `;
-            } else if (url.includes('youtube.com')) {
-                return `
-                    <div>
-                        <div style="background: #ff0000; color: white; padding: 10px; text-align: center; margin-bottom: 20px;">
-                            <h2 style="margin: 0;">YouTube</h2>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                            <div style="background: #f9f9f9; border-radius: 8px; padding: 10px;">
-                                <div style="background: #e0e0e0; height: 100px; border-radius: 4px; margin-bottom: 10px;"></div>
-                                <h3 style="margin: 0 0 5px 0; font-size: 14px;">Empfohlene Videos</h3>
-                                <p style="margin: 0; font-size: 12px; color: #666;">YouTube Inhalt</p>
-                            </div>
-                            <div style="background: #f9f9f9; border-radius: 8px; padding: 10px;">
-                                <div style="background: #e0e0e0; height: 100px; border-radius: 4px; margin-bottom: 10px;"></div>
-                                <h3 style="margin: 0 0 5px 0; font-size: 14px;">Trending</h3>
-                                <p style="margin: 0; font-size: 12px; color: #666;">Beliebte Videos</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
             } else {
                 return `
                     <p>Willkommen auf ${url}</p>
                     <p>Dies ist eine simulierte Browser-Ansicht. In einer echten Implementierung würde hier der tatsächliche Web-Inhalt angezeigt werden.</p>
-                    <div style="margin-top: 30px;">
-                        <h3>Schnelllinks:</h3>
-                        <ul>
-                            <li><a href="https://www.google.com" style="color: #1a73e8;">Google</a></li>
-                            <li><a href="https://www.youtube.com" style="color: #1a73e8;">YouTube</a></li>
-                            <li><a href="https://www.github.com" style="color: #1a73e8;">GitHub</a></li>
-                        </ul>
-                    </div>
+                    <div class="download-link" data-file="sample.pdf">Beispiel-Datei herunterladen</div>
                 `;
             }
         }
+        
+        // Download functionality
+        browserPage.addEventListener('click', function(e) {
+            if (e.target.classList.contains('download-link')) {
+                const fileName = e.target.getAttribute('data-file');
+                simulateDownload(fileName);
+            }
+        });
+        
+        function simulateDownload(fileName) {
+            downloads.push({
+                name: fileName,
+                date: new Date().toLocaleString('de-DE'),
+                status: 'Abgeschlossen'
+            });
+            
+            alert(`Download gestartet: ${fileName}\n\nDie Datei wurde in Ihren Downloads gespeichert.`);
+        }
+        
+        browserDownloads.addEventListener('click', function() {
+            if (downloads.length === 0) {
+                alert('Keine Downloads vorhanden.');
+            } else {
+                let downloadList = 'Ihre Downloads:\n\n';
+                downloads.forEach(download => {
+                    downloadList += `• ${download.name} (${download.date})\n`;
+                });
+                alert(downloadList);
+            }
+        });
         
         browserUrlInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -3317,20 +3134,66 @@
             alert('KI-Kunstwerk wurde in der Galerie gespeichert!');
         });
         
+        // Store categories
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Store items
+        storeItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const appName = this.querySelector('.store-name').textContent;
+                alert(`${appName} wird installiert...`);
+            });
+        });
+        
         // Settings navigation
-        document.getElementById('update-settings').addEventListener('click', function() {
+        updateSettings.addEventListener('click', function() {
             settingsApp.classList.add('hidden');
-            updateScreen.classList.remove('hidden');
-            currentScreen = 'update-screen';
-            startUpdateProcess();
+            updateApp.classList.remove('hidden');
+            currentScreen = 'update-app';
         });
         
-        document.getElementById('about-settings').addEventListener('click', function() {
-            alert('PartexOS 10.2\n© 2023 Partex Technologies\nBuild: PXOS-10.2-20230515\nKernel: 5.15.0-partex\nSpeicher: 128GB / 256GB verfügbar');
+        developerOptions.addEventListener('click', function() {
+            settingsApp.classList.add('hidden');
+            developerApp.classList.remove('hidden');
+            currentScreen = 'developer-app';
         });
         
-        document.getElementById('app-permissions').addEventListener('click', function() {
-            alert('App-Berechtigungen:\n\n• Kamera: Erlaubt\n• Standort: Verweigert\n• Mikrofon: Erlaubt\n• Kontakte: Ausstehend\n• Benachrichtigungen: Erlaubt');
+        wallpaperSettings.addEventListener('click', function() {
+            settingsApp.classList.add('hidden');
+            wallpaperApp.classList.remove('hidden');
+            currentScreen = 'wallpaper-app';
+        });
+        
+        // Wallpaper selection
+        wallpaperItems.forEach(item => {
+            item.addEventListener('click', function() {
+                wallpaperItems.forEach(w => w.classList.remove('active'));
+                this.classList.add('active');
+                currentWallpaper = this.getAttribute('data-wallpaper');
+            });
+        });
+        
+        applyWallpaper.addEventListener('click', function() {
+            const wallpapers = {
+                'default': 'https://images.unsplash.com/photo-1505506874110-6a7a69069a08?w=1000',
+                'nature': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000',
+                'abstract': 'https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=1000',
+                'gradient': 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031?w=1000',
+                'city': 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1000',
+                'space': 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=1000'
+            };
+            
+            lockScreen.style.background = `url('${wallpapers[currentWallpaper]}') center/cover no-repeat`;
+            alert('Hintergrundbild wurde geändert!');
+        });
+        
+        startUpdate.addEventListener('click', function() {
+            alert('Update wird heruntergeladen und installiert...\nDas Gerät startet nach der Installation neu.');
         });
         
         // Back button functionality
@@ -3381,7 +3244,6 @@
         makeCall.addEventListener('click', function() {
             if (phoneNumberValue) {
                 alert(`Rufe ${phoneNumberValue} an...`);
-                // In a real app, you would initiate a call here
             }
         });
         
@@ -3416,6 +3278,10 @@
                 batteryIcon.classList.add('fa-battery-empty');
             }
         }, 30000);
+        
+        // Add touch event improvements for iOS
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        document.addEventListener('touchmove', function() {}, {passive: true});
     </script>
 </body>
 </html>
