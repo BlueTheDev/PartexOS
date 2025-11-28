@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PartexOS 10.0</title>
+    <title>PartexOS 10.2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -76,29 +76,28 @@
             pointer-events: none;
         }
         
-        /* Control Center */
+        /* Control Center - iPhone Style */
         .control-center {
             position: absolute;
-            top: 0;
-            right: -400px;
-            width: 320px;
-            height: 100%;
+            top: -600px;
+            left: 0;
+            right: 0;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: var(--blur);
             padding: 60px 20px 20px;
-            transition: right 0.3s ease;
+            border-radius: 0 0 30px 30px;
+            transition: top 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             z-index: 1000;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .control-center.active {
-            right: 0;
+            top: 0;
         }
         
         .control-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
             margin-bottom: 30px;
         }
         
@@ -124,14 +123,14 @@
         }
         
         .control-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 18px;
+            font-size: 20px;
             transition: var(--transition);
         }
         
@@ -505,60 +504,6 @@
             opacity: 0.9;
         }
         
-        .lock-notifications {
-            margin-top: 40px;
-        }
-        
-        .notification {
-            background: var(--glass);
-            backdrop-filter: var(--blur);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
-            animation: slideInUp 0.5s ease;
-        }
-        
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .notification-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: var(--primary);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-        }
-        
-        .notification-content {
-            flex: 1;
-        }
-        
-        .notification-title {
-            font-weight: 600;
-            margin-bottom: 3px;
-        }
-        
-        .notification-text {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-        
         .unlock-area {
             display: flex;
             flex-direction: column;
@@ -613,7 +558,7 @@
         
         .home-time {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         
         .home-time .time {
@@ -626,126 +571,12 @@
             opacity: 0.8;
         }
         
-        .widgets-container {
-            margin-bottom: 20px;
-        }
-        
-        .widget {
-            background: var(--glass);
-            backdrop-filter: var(--blur);
-            border-radius: 20px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
-            animation: slideInUp 0.5s ease;
-        }
-        
-        .widget:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .widget-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        
-        .widget-title {
-            font-weight: 600;
-            font-size: 14px;
-        }
-        
-        .widget-content {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-        
-        .weather-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .weather-icon {
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-        
-        .weather-temp {
-            font-weight: 600;
-            font-size: 16px;
-        }
-        
-        .weather-day {
-            font-size: 11px;
-            opacity: 0.7;
-        }
-        
-        .music-widget {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .music-cover {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 16px;
-        }
-        
-        .music-info {
-            flex: 1;
-        }
-        
-        .music-title {
-            font-weight: 600;
-            margin-bottom: 2px;
-            font-size: 14px;
-        }
-        
-        .music-artist {
-            font-size: 11px;
-            opacity: 0.7;
-        }
-        
-        .music-controls {
-            display: flex;
-            gap: 8px;
-        }
-        
-        .music-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 12px;
-        }
-        
-        .music-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
         .search-bar {
             background: var(--glass);
             backdrop-filter: var(--blur);
             border-radius: 25px;
             padding: 12px 20px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -1391,6 +1222,13 @@
             font-size: 24px;
             transition: var(--transition);
             cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .gallery-item:hover {
@@ -1570,6 +1408,191 @@
             color: #666;
         }
         
+        /* PartexStore App */
+        .store-categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        
+        .category-btn {
+            background: var(--glass);
+            border: none;
+            color: var(--light);
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+        
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .store-item {
+            background: var(--glass);
+            border-radius: 15px;
+            padding: 15px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .store-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .store-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .store-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .store-desc {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+        
+        .store-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+        
+        .store-btn:hover {
+            background: var(--secondary);
+        }
+        
+        /* PixelPlay Game */
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            background: var(--glass);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .game-cell {
+            width: 80px;
+            height: 80px;
+            background: var(--dark);
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .game-cell:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .game-info {
+            text-align: center;
+        }
+        
+        .game-score {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .game-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .game-btn:hover {
+            background: var(--secondary);
+        }
+        
+        /* PixelCraft AI */
+        .ai-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .ai-canvas {
+            width: 300px;
+            height: 300px;
+            background: var(--glass);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .ai-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .ai-btn {
+            background: var(--glass);
+            border: none;
+            color: var(--light);
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .ai-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .ai-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+        
         /* Permission Dialog */
         .permission-dialog {
             position: absolute;
@@ -1668,7 +1691,7 @@
     <div class="phone-container">
         <div class="notch"></div>
         
-        <!-- Control Center -->
+        <!-- Control Center - iPhone Style -->
         <div class="control-center" id="control-center">
             <div class="control-grid">
                 <div class="control-item" data-control="wifi">
@@ -1707,6 +1730,18 @@
                     </div>
                     <div class="control-label">Rotation</div>
                 </div>
+                <div class="control-item" data-control="flashlight">
+                    <div class="control-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="control-label">Taschenlampe</div>
+                </div>
+                <div class="control-item" data-control="calculator">
+                    <div class="control-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="control-label">Rechner</div>
+                </div>
             </div>
             
             <div class="control-slider">
@@ -1728,33 +1763,6 @@
                         <div class="slider-fill" style="width: 80%;"></div>
                         <div class="slider-handle" style="right: 20%;"></div>
                     </div>
-                </div>
-            </div>
-            
-            <div class="control-grid">
-                <div class="control-item" data-control="flashlight">
-                    <div class="control-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <div class="control-label">Taschenlampe</div>
-                </div>
-                <div class="control-item" data-control="calculator">
-                    <div class="control-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <div class="control-label">Rechner</div>
-                </div>
-                <div class="control-item" data-control="camera">
-                    <div class="control-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <div class="control-label">Kamera</div>
-                </div>
-                <div class="control-item" data-control="timer">
-                    <div class="control-icon">
-                        <i class="fas fa-hourglass-half"></i>
-                    </div>
-                    <div class="control-label">Timer</div>
                 </div>
             </div>
         </div>
@@ -1781,7 +1789,6 @@
                     <div class="step"></div>
                     <div class="step"></div>
                     <div class="step"></div>
-                    <div class="step"></div>
                 </div>
                 
                 <div class="setup-progress">
@@ -1802,7 +1809,6 @@
                 <div class="step-indicator">
                     <div class="step"></div>
                     <div class="step active"></div>
-                    <div class="step"></div>
                     <div class="step"></div>
                     <div class="step"></div>
                     <div class="step"></div>
@@ -1842,7 +1848,6 @@
                     <div class="step active"></div>
                     <div class="step"></div>
                     <div class="step"></div>
-                    <div class="step"></div>
                 </div>
                 
                 <div class="setup-form">
@@ -1853,7 +1858,7 @@
                             <option>PIN</option>
                             <option>Muster</option>
                             <option>Passwort</option>
-                            <option>Fingerabdruck</option>
+                            <option>Gesichtserkennung</option>
                         </select>
                     </div>
                     
@@ -1889,7 +1894,6 @@
                     <div class="step"></div>
                     <div class="step"></div>
                     <div class="step active"></div>
-                    <div class="step"></div>
                     <div class="step"></div>
                 </div>
                 
@@ -1931,7 +1935,6 @@
                     <div class="step"></div>
                     <div class="step"></div>
                     <div class="step active"></div>
-                    <div class="step"></div>
                 </div>
                 
                 <div class="setup-form">
@@ -1979,7 +1982,7 @@
                 <div class="update-icon">
                     <i class="fas fa-sync-alt"></i>
                 </div>
-                <div class="setup-title">PartexOS 10.1 wird installiert</div>
+                <div class="setup-title">PartexOS 10.2 wird installiert</div>
                 <div class="setup-subtitle">Bitte schalten Sie das Gerät nicht aus.</div>
                 
                 <div class="setup-progress">
@@ -2008,27 +2011,6 @@
                     <div class="date">Montag, 15. Mai</div>
                 </div>
                 
-                <div class="lock-notifications">
-                    <div class="notification">
-                        <div class="notification-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="notification-content">
-                            <div class="notification-title">Nachricht</div>
-                            <div class="notification-text">Max: Hey, wie geht's?</div>
-                        </div>
-                    </div>
-                    <div class="notification">
-                        <div class="notification-icon">
-                            <i class="fas fa-calendar"></i>
-                        </div>
-                        <div class="notification-content">
-                            <div class="notification-title">Kalender</div>
-                            <div class="notification-text">Meeting um 15:00 Uhr</div>
-                        </div>
-                    </div>
-                </div>
-                
                 <div class="unlock-area">
                     <div class="unlock-hint">Zum Entsperren nach oben wischen</div>
                     <div class="unlock-handle" id="unlock-handle">
@@ -2055,53 +2037,6 @@
                     <div class="date">Montag, 15. Mai</div>
                 </div>
                 
-                <!-- Widgets -->
-                <div class="widgets-container">
-                    <div class="widget">
-                        <div class="widget-header">
-                            <div class="widget-title">Wetter</div>
-                            <div class="music-btn">
-                                <i class="fas fa-location-arrow"></i>
-                            </div>
-                        </div>
-                        <div class="widget-content">
-                            <div class="weather-item">
-                                <div class="weather-icon">☀️</div>
-                                <div class="weather-temp">24°</div>
-                                <div class="weather-day">Heute</div>
-                            </div>
-                            <div class="weather-item">
-                                <div class="weather-icon">⛅</div>
-                                <div class="weather-temp">22°</div>
-                                <div class="weather-day">Morgen</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="widget">
-                        <div class="music-widget">
-                            <div class="music-cover">
-                                <i class="fas fa-music"></i>
-                            </div>
-                            <div class="music-info">
-                                <div class="music-title">Electric Dreams</div>
-                                <div class="music-artist">Neon Waves</div>
-                            </div>
-                            <div class="music-controls">
-                                <div class="music-btn">
-                                    <i class="fas fa-backward"></i>
-                                </div>
-                                <div class="music-btn">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                                <div class="music-btn">
-                                    <i class="fas fa-forward"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Suchen...">
@@ -2115,7 +2050,7 @@
                             </div>
                             <div class="app-name">Nachrichten</div>
                         </div>
-                        <div class="app-badge">3</div>
+                        <div class="app-badge">1</div>
                     </div>
                     
                     <div class="app-wrapper">
@@ -2146,11 +2081,11 @@
                     </div>
                     
                     <div class="app-wrapper">
-                        <div class="app" data-app="music">
+                        <div class="app" data-app="partexstore">
                             <div class="app-icon">
-                                <i class="fas fa-music"></i>
+                                <i class="fas fa-shopping-bag"></i>
                             </div>
-                            <div class="app-name">Musik</div>
+                            <div class="app-name">PartexStore</div>
                         </div>
                     </div>
                     
@@ -2178,6 +2113,42 @@
                                 <i class="fas fa-cog"></i>
                             </div>
                             <div class="app-name">Einstellungen</div>
+                        </div>
+                    </div>
+                    
+                    <div class="app-wrapper">
+                        <div class="app" data-app="pixelcraft">
+                            <div class="app-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="app-name">PixelCraft</div>
+                        </div>
+                    </div>
+                    
+                    <div class="app-wrapper">
+                        <div class="app" data-app="pixelplay">
+                            <div class="app-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="app-name">PixelPlay</div>
+                        </div>
+                    </div>
+                    
+                    <div class="app-wrapper">
+                        <div class="app" data-app="music">
+                            <div class="app-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="app-name">Musik</div>
+                        </div>
+                    </div>
+                    
+                    <div class="app-wrapper">
+                        <div class="app" data-app="emojis">
+                            <div class="app-icon">
+                                <i class="fas fa-smile"></i>
+                            </div>
+                            <div class="app-name">PartexMoji</div>
                         </div>
                     </div>
                 </div>
@@ -2313,7 +2284,7 @@
                                 </div>
                                 <div>
                                     <div class="settings-text">Sicherheit</div>
-                                    <div class="settings-desc">Sperrbildschirm und Fingerabdruck</div>
+                                    <div class="settings-desc">Sperrbildschirm und Gesichtserkennung</div>
                                 </div>
                             </div>
                             <div>→</div>
@@ -2345,7 +2316,7 @@
                                 </div>
                                 <div>
                                     <div class="settings-text">Systemupdate</div>
-                                    <div class="settings-desc">PartexOS 10.0 verfügbar</div>
+                                    <div class="settings-desc">PartexOS 10.2 verfügbar</div>
                                 </div>
                             </div>
                             <div>→</div>
@@ -2357,7 +2328,7 @@
                                 </div>
                                 <div>
                                     <div class="settings-text">Über PartexOS</div>
-                                    <div class="settings-desc">Version 10.0</div>
+                                    <div class="settings-desc">Version 10.2</div>
                                 </div>
                             </div>
                             <div>→</div>
@@ -2376,29 +2347,13 @@
                 </div>
                 <div class="app-content">
                     <div class="conversation-list">
-                        <div class="conversation" data-conversation="max">
-                            <div class="conversation-avatar">M</div>
-                            <div class="conversation-content">
-                                <div class="conversation-name">Max Mustermann</div>
-                                <div class="conversation-preview">Hallo! Wie geht's dir?</div>
-                            </div>
-                            <div class="conversation-time">14:20</div>
-                        </div>
-                        <div class="conversation" data-conversation="anna">
-                            <div class="conversation-avatar">A</div>
-                            <div class="conversation-content">
-                                <div class="conversation-name">Anna Schmidt</div>
-                                <div class="conversation-preview">Erinnerung: Meeting morgen um 10 Uhr</div>
-                            </div>
-                            <div class="conversation-time">13:45</div>
-                        </div>
-                        <div class="conversation" data-conversation="service">
+                        <div class="conversation" data-conversation="partex">
                             <div class="conversation-avatar">P</div>
                             <div class="conversation-content">
-                                <div class="conversation-name">Partex Service</div>
-                                <div class="conversation-preview">Ihr PartexOS ist auf dem neuesten Stand</div>
+                                <div class="conversation-name">Partex Willkommen</div>
+                                <div class="conversation-preview">Willkommen bei PartexOS! Ihr Konto wurde erfolgreich erstellt.</div>
                             </div>
-                            <div class="conversation-time">12:30</div>
+                            <div class="conversation-time">14:20</div>
                         </div>
                     </div>
                 </div>
@@ -2502,47 +2457,6 @@
                 </div>
             </div>
             
-            <!-- Music App -->
-            <div class="page app-screen hidden" id="music-app">
-                <div class="app-header">
-                    <div class="back-button">
-                        <i class="fas fa-arrow-left"></i>
-                    </div>
-                    <div class="app-title">Musik</div>
-                </div>
-                <div class="app-content">
-                    <div class="music-player">
-                        <div class="album-art">
-                            <i class="fas fa-music"></i>
-                        </div>
-                        <div class="song-info">
-                            <div class="song-title">Electric Dreams</div>
-                            <div class="song-artist">Neon Waves</div>
-                        </div>
-                        <div class="progress-container">
-                            <div class="progress-time">
-                                <span>1:24</span>
-                                <span>4:18</span>
-                            </div>
-                            <div class="music-progress" id="music-progress">
-                                <div class="music-progress-bar" id="music-progress-bar"></div>
-                            </div>
-                        </div>
-                        <div class="music-controls">
-                            <div class="control-btn" id="prev-song">
-                                <i class="fas fa-backward"></i>
-                            </div>
-                            <div class="control-btn play-btn" id="play-pause">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="control-btn" id="next-song">
-                                <i class="fas fa-forward"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
             <!-- Gallery App -->
             <div class="page app-screen hidden" id="gallery-app">
                 <div class="app-header">
@@ -2553,74 +2467,161 @@
                 </div>
                 <div class="app-content">
                     <div class="gallery-grid">
-                        <div class="gallery-item"><i class="fas fa-image"></i></div>
-                        <div class="gallery-item"><i class="fas fa-image"></i></div>
-                        <div class="gallery-item"><i class="fas fa-image"></i></div>
-                        <div class="gallery-item"><i class="fas fa-image"></i></div>
-                        <div class="gallery-item"><i class="fas fa-image"></i></div>
-                        <div class="gallery-item"><i class="fas fa-image"></i></div>
-                        <div class="gallery-item"><i class="fas fa-image"></i></div>
-                        <div class="gallery-item"><i class="fas fa-image"></i></div>
-                        <div class="gallery-item"><i class="fas fa-image"></i></div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=150" alt="Buch">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=150" alt="Bücher">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" alt="Portrait">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1543332164-6e82f355badc?w=150" alt="Natur">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=150" alt="Stadt">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=150" alt="Berg">
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Calendar App -->
-            <div class="page app-screen hidden" id="calendar-app">
+            <!-- PartexStore App -->
+            <div class="page app-screen hidden" id="partexstore-app">
                 <div class="app-header">
                     <div class="back-button">
                         <i class="fas fa-arrow-left"></i>
                     </div>
-                    <div class="app-title">Kalender</div>
+                    <div class="app-title">PartexStore</div>
                 </div>
                 <div class="app-content">
-                    <div class="calendar-header">
-                        <div class="calendar-month">Mai 2023</div>
-                        <div class="control-btn">
-                            <i class="fas fa-ellipsis-h"></i>
+                    <div class="store-categories">
+                        <button class="category-btn active">Empfohlen</button>
+                        <button class="category-btn">Spiele</button>
+                        <button class="category-btn">Apps</button>
+                        <button class="category-btn">Kreativ</button>
+                        <button class="category-btn">Produktivität</button>
+                    </div>
+                    
+                    <div class="store-grid">
+                        <div class="store-item">
+                            <div class="store-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="store-name">PixelPlay</div>
+                            <div class="store-desc">Spannendes Strategiespiel</div>
+                            <button class="store-btn">Installieren</button>
+                        </div>
+                        
+                        <div class="store-item">
+                            <div class="store-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="store-name">PixelCraft</div>
+                            <div class="store-desc">KI-basierte Kunst</div>
+                            <button class="store-btn">Installieren</button>
+                        </div>
+                        
+                        <div class="store-item">
+                            <div class="store-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="store-name">SoundWave</div>
+                            <div class="store-desc">Musik-Streaming</div>
+                            <button class="store-btn">Installieren</button>
+                        </div>
+                        
+                        <div class="store-item">
+                            <div class="store-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <div class="store-name">PhotoEdit Pro</div>
+                            <div class="store-desc">Bildbearbeitung</div>
+                            <button class="store-btn">Installieren</button>
                         </div>
                     </div>
-                    <div class="calendar-grid">
-                        <div class="calendar-day">Mo</div>
-                        <div class="calendar-day">Di</div>
-                        <div class="calendar-day">Mi</div>
-                        <div class="calendar-day">Do</div>
-                        <div class="calendar-day">Fr</div>
-                        <div class="calendar-day">Sa</div>
-                        <div class="calendar-day">So</div>
-                        
-                        <div class="calendar-date">1</div>
-                        <div class="calendar-date">2</div>
-                        <div class="calendar-date">3</div>
-                        <div class="calendar-date">4</div>
-                        <div class="calendar-date">5</div>
-                        <div class="calendar-date">6</div>
-                        <div class="calendar-date">7</div>
-                        <div class="calendar-date">8</div>
-                        <div class="calendar-date">9</div>
-                        <div class="calendar-date">10</div>
-                        <div class="calendar-date">11</div>
-                        <div class="calendar-date">12</div>
-                        <div class="calendar-date">13</div>
-                        <div class="calendar-date">14</div>
-                        <div class="calendar-date active">15</div>
-                        <div class="calendar-date">16</div>
-                        <div class="calendar-date">17</div>
-                        <div class="calendar-date">18</div>
-                        <div class="calendar-date">19</div>
-                        <div class="calendar-date">20</div>
-                        <div class="calendar-date">21</div>
-                        <div class="calendar-date">22</div>
-                        <div class="calendar-date">23</div>
-                        <div class="calendar-date">24</div>
-                        <div class="calendar-date">25</div>
-                        <div class="calendar-date">26</div>
-                        <div class="calendar-date">27</div>
-                        <div class="calendar-date">28</div>
-                        <div class="calendar-date">29</div>
-                        <div class="calendar-date">30</div>
-                        <div class="calendar-date">31</div>
+                </div>
+            </div>
+            
+            <!-- PixelPlay Game -->
+            <div class="page app-screen hidden" id="pixelplay-app">
+                <div class="app-header">
+                    <div class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="app-title">PixelPlay</div>
+                </div>
+                <div class="app-content">
+                    <div class="game-container">
+                        <div class="game-info">
+                            <div class="game-score">Punkte: <span id="game-score">0</span></div>
+                            <div id="game-status">Spiel starten!</div>
+                        </div>
+                        <div class="game-board" id="game-board">
+                            <div class="game-cell" data-cell="0"></div>
+                            <div class="game-cell" data-cell="1"></div>
+                            <div class="game-cell" data-cell="2"></div>
+                            <div class="game-cell" data-cell="3"></div>
+                            <div class="game-cell" data-cell="4"></div>
+                            <div class="game-cell" data-cell="5"></div>
+                            <div class="game-cell" data-cell="6"></div>
+                            <div class="game-cell" data-cell="7"></div>
+                            <div class="game-cell" data-cell="8"></div>
+                        </div>
+                        <button class="game-btn" id="game-restart">Neustart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PixelCraft AI -->
+            <div class="page app-screen hidden" id="pixelcraft-app">
+                <div class="app-header">
+                    <div class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="app-title">PixelCraft</div>
+                </div>
+                <div class="app-content">
+                    <div class="ai-container">
+                        <div class="ai-canvas" id="ai-canvas">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="ai-controls">
+                            <button class="ai-btn" id="ai-generate">Bild generieren</button>
+                            <button class="ai-btn" id="ai-style1">Abstrakt</button>
+                            <button class="ai-btn" id="ai-style2">Realistisch</button>
+                            <button class="ai-btn primary" id="ai-save">Speichern</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PartexMoji App -->
+            <div class="page app-screen hidden" id="emojis-app">
+                <div class="app-header">
+                    <div class="back-button">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="app-title">PartexMoji</div>
+                </div>
+                <div class="app-content">
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 48px; margin-bottom: 20px;">😊 🚀 🌟 🎮 📱</div>
+                        <h3>PartexMoji - Deine Emojis</h3>
+                        <p>Exklusive Emojis nur für PartexOS Benutzer!</p>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 30px;">
+                            <div style="font-size: 24px; padding: 15px; background: var(--glass); border-radius: 10px;">⭐</div>
+                            <div style="font-size: 24px; padding: 15px; background: var(--glass); border-radius: 10px;">🔥</div>
+                            <div style="font-size: 24px; padding: 15px; background: var(--glass); border-radius: 10px;">🎯</div>
+                            <div style="font-size: 24px; padding: 15px; background: var(--glass); border-radius: 10px;">💫</div>
+                            <div style="font-size: 24px; padding: 15px; background: var(--glass); border-radius: 10px;">🚀</div>
+                            <div style="font-size: 24px; padding: 15px; background: var(--glass); border-radius: 10px;">🌈</div>
+                            <div style="font-size: 24px; padding: 15px; background: var(--glass); border-radius: 10px;">🎨</div>
+                            <div style="font-size: 24px; padding: 15px; background: var(--glass); border-radius: 10px;">⚡</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2676,9 +2677,11 @@
         const cameraApp = document.getElementById('camera-app');
         const messagesApp = document.getElementById('messages-app');
         const phoneApp = document.getElementById('phone-app');
-        const musicApp = document.getElementById('music-app');
         const galleryApp = document.getElementById('gallery-app');
-        const calendarApp = document.getElementById('calendar-app');
+        const partexstoreApp = document.getElementById('partexstore-app');
+        const pixelplayApp = document.getElementById('pixelplay-app');
+        const pixelcraftApp = document.getElementById('pixelcraft-app');
+        const emojisApp = document.getElementById('emojis-app');
         const browserApp = document.getElementById('browser-app');
         const homeButton = document.getElementById('home-button');
         const navBar = document.getElementById('nav-bar');
@@ -2697,11 +2700,6 @@
         const makeCall = document.getElementById('make-call');
         const takePhoto = document.getElementById('take-photo');
         const cameraSwitch = document.getElementById('camera-switch');
-        const playPauseBtn = document.getElementById('play-pause');
-        const prevSongBtn = document.getElementById('prev-song');
-        const nextSongBtn = document.getElementById('next-song');
-        const musicProgress = document.getElementById('music-progress');
-        const musicProgressBar = document.getElementById('music-progress-bar');
         const bootProgress = document.getElementById('boot-progress');
         const updateProgress = document.getElementById('update-progress');
         const updateText = document.getElementById('update-text');
@@ -2712,19 +2710,29 @@
         const browserForward = document.getElementById('browser-forward');
         const browserRefresh = document.getElementById('browser-refresh');
         const browserSecurityIcon = document.getElementById('browser-security-icon');
+        const gameBoard = document.getElementById('game-board');
+        const gameCells = document.querySelectorAll('.game-cell');
+        const gameScore = document.getElementById('game-score');
+        const gameStatus = document.getElementById('game-status');
+        const gameRestart = document.getElementById('game-restart');
+        const aiCanvas = document.getElementById('ai-canvas');
+        const aiGenerate = document.getElementById('ai-generate');
+        const aiSave = document.getElementById('ai-save');
         
         // Current screen state
         let currentScreen = 'boot-screen';
         let currentStep = 0;
         let phoneNumberValue = '';
-        let isPlaying = false;
         let isSetupComplete = false;
         let controlCenterOpen = false;
         let browserHistory = ['https://www.google.com'];
         let browserHistoryIndex = 0;
         let cameraPermission = false;
-        let currentSongTime = 84; // 1:24 in seconds
-        let totalSongTime = 258; // 4:18 in seconds
+        let currentPlayer = 'X';
+        let gameState = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+        let score = 0;
+        let galleryImages = [];
         
         // Start boot process
         startBootProcess();
@@ -2751,7 +2759,16 @@
         document.getElementById('language-next').addEventListener('click', () => navigateSetup('lockscreen-setup'));
         document.getElementById('lockscreen-next').addEventListener('click', () => navigateSetup('wifi-screen'));
         document.getElementById('wifi-next').addEventListener('click', () => navigateSetup('account-screen'));
-        document.getElementById('account-next').addEventListener('click', () => navigateSetup('activation-screen'));
+        document.getElementById('account-next').addEventListener('click', () => {
+            // Send welcome SMS after account creation
+            setTimeout(() => {
+                const messagesBadge = document.querySelector('.app[data-app="messages"] .app-badge');
+                if (messagesBadge) {
+                    messagesBadge.textContent = '1';
+                }
+            }, 2000);
+            navigateSetup('activation-screen');
+        });
         
         function navigateSetup(nextScreen) {
             document.getElementById(currentScreen).classList.add('hidden');
@@ -2795,7 +2812,7 @@
             let progress = 0;
             const updateStages = [
                 "Vorbereitung...",
-                "Downloading PartexOS 10.1...",
+                "Downloading PartexOS 10.2...",
                 "Überprüfe Update...",
                 "Installiere Systemkomponenten...",
                 "Finalisiere Installation..."
@@ -2850,7 +2867,7 @@
             dateElements.forEach(el => el.textContent = date);
         }
         
-        // Control Center functionality
+        // Control Center functionality - iPhone style from top
         function toggleControlCenter() {
             if (controlCenterOpen) {
                 controlCenter.classList.remove('active');
@@ -2878,16 +2895,13 @@
                 // Specific functionality for each control
                 switch(controlType) {
                     case 'wifi':
-                        alert(`WLAN ${isActive ? 'ausgeschaltet' : 'eingeschaltet'}`);
+                        document.getElementById('wifi-toggle').checked = !isActive;
                         break;
                     case 'bluetooth':
-                        alert(`Bluetooth ${isActive ? 'ausgeschaltet' : 'eingeschaltet'}`);
+                        document.getElementById('bluetooth-toggle').checked = !isActive;
                         break;
                     case 'flashlight':
                         alert(`Taschenlampe ${isActive ? 'ausgeschaltet' : 'eingeschaltet'}`);
-                        break;
-                    case 'camera':
-                        navigateToApp('camera');
                         break;
                 }
             });
@@ -2945,27 +2959,26 @@
             unlockHandle.style.transform = 'translateY(0)';
         }
         
-        // Control Center swipe from right
-        let touchStartX = 0;
-        let touchEndX = 0;
+        // Control Center swipe from top
+        let touchStartY = 0;
+        let touchEndY = 0;
         
         screen.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
         });
         
         screen.addEventListener('touchend', e => {
             if (!isSetupComplete) return;
             
-            touchEndX = e.changedTouches[0].screenX;
-            const screenWidth = window.innerWidth;
+            touchEndY = e.changedTouches[0].screenY;
             
-            // Swipe from right edge to open control center
-            if (touchStartX > screenWidth - 50 && touchEndX < touchStartX - 100) {
+            // Swipe from top edge to open control center
+            if (touchStartY < 100 && touchEndY > touchStartY + 100) {
                 toggleControlCenter();
             }
             
-            // Swipe from left to close control center
-            if (controlCenterOpen && touchStartX < 100 && touchEndX > touchStartX + 100) {
+            // Swipe down to close control center
+            if (controlCenterOpen && touchStartY > 100 && touchEndY < touchStartY - 100) {
                 toggleControlCenter();
             }
         });
@@ -2997,15 +3010,21 @@
             } else if (appName === 'phone') {
                 phoneApp.classList.remove('hidden');
                 currentScreen = 'phone-app';
-            } else if (appName === 'music') {
-                musicApp.classList.remove('hidden');
-                currentScreen = 'music-app';
             } else if (appName === 'gallery') {
                 galleryApp.classList.remove('hidden');
                 currentScreen = 'gallery-app';
-            } else if (appName === 'calendar') {
-                calendarApp.classList.remove('hidden');
-                currentScreen = 'calendar-app';
+            } else if (appName === 'partexstore') {
+                partexstoreApp.classList.remove('hidden');
+                currentScreen = 'partexstore-app';
+            } else if (appName === 'pixelplay') {
+                pixelplayApp.classList.remove('hidden');
+                currentScreen = 'pixelplay-app';
+            } else if (appName === 'pixelcraft') {
+                pixelcraftApp.classList.remove('hidden');
+                currentScreen = 'pixelcraft-app';
+            } else if (appName === 'emojis') {
+                emojisApp.classList.remove('hidden');
+                currentScreen = 'emojis-app';
             } else if (appName === 'browser') {
                 browserApp.classList.remove('hidden');
                 currentScreen = 'browser-app';
@@ -3075,6 +3094,14 @@
                 cameraApp.querySelector('.camera-preview').removeChild(flash);
             }, 400);
             
+            // Add to gallery
+            const newImage = {
+                id: Date.now(),
+                src: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=150',
+                caption: 'Neues Foto'
+            };
+            galleryImages.unshift(newImage);
+            
             // Show confirmation
             setTimeout(() => {
                 alert('Foto aufgenommen! Das Bild wurde in der Galerie gespeichert.');
@@ -3087,59 +3114,6 @@
                 this.style.transform = 'rotate(0deg)';
             }, 300);
             alert('Kamera gewechselt');
-        });
-        
-        // Music player functionality
-        playPauseBtn.addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            if (isPlaying) {
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
-                document.querySelector('.album-art').style.animationPlayState = 'paused';
-            } else {
-                icon.classList.remove('fa-play');
-                icon.classList.add('fa-pause');
-                document.querySelector('.album-art').style.animationPlayState = 'running';
-                
-                // Start progress animation
-                const progressInterval = setInterval(() => {
-                    if (!isPlaying) {
-                        clearInterval(progressInterval);
-                        return;
-                    }
-                    
-                    currentSongTime++;
-                    if (currentSongTime >= totalSongTime) {
-                        currentSongTime = 0;
-                    }
-                    
-                    const progressPercent = (currentSongTime / totalSongTime) * 100;
-                    musicProgressBar.style.width = `${progressPercent}%`;
-                    
-                    // Update time display
-                    const currentMinutes = Math.floor(currentSongTime / 60);
-                    const currentSeconds = currentSongTime % 60;
-                    document.querySelector('.progress-time span:first-child').textContent = 
-                        `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
-                }, 1000);
-            }
-            isPlaying = !isPlaying;
-        });
-        
-        musicProgress.addEventListener('click', function(e) {
-            const rect = this.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const percent = clickX / rect.width;
-            
-            currentSongTime = Math.floor(totalSongTime * percent);
-            const progressPercent = (currentSongTime / totalSongTime) * 100;
-            musicProgressBar.style.width = `${progressPercent}%`;
-            
-            // Update time display
-            const currentMinutes = Math.floor(currentSongTime / 60);
-            const currentSeconds = currentSongTime % 60;
-            document.querySelector('.progress-time span:first-child').textContent = 
-                `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
         });
         
         // Browser functionality
@@ -3258,6 +3232,91 @@
             loadBrowserPage(browserHistory[browserHistoryIndex]);
         });
         
+        // PixelPlay Game functionality
+        const winningConditions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+        
+        function handleCellClick(clickedCellEvent) {
+            const clickedCell = clickedCellEvent.target;
+            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell'));
+            
+            if (gameState[clickedCellIndex] !== '' || !gameActive) {
+                return;
+            }
+            
+            gameState[clickedCellIndex] = currentPlayer;
+            clickedCell.innerHTML = currentPlayer;
+            
+            checkResult();
+        }
+        
+        function checkResult() {
+            let roundWon = false;
+            
+            for (let i = 0; i < winningConditions.length; i++) {
+                const [a, b, c] = winningConditions[i];
+                if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+                    roundWon = true;
+                    break;
+                }
+            }
+            
+            if (roundWon) {
+                gameStatus.innerHTML = `Spieler ${currentPlayer} hat gewonnen!`;
+                gameActive = false;
+                score += 10;
+                gameScore.textContent = score;
+                return;
+            }
+            
+            const roundDraw = !gameState.includes('');
+            if (roundDraw) {
+                gameStatus.innerHTML = 'Unentschieden!';
+                gameActive = false;
+                return;
+            }
+            
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            gameStatus.innerHTML = `Spieler ${currentPlayer} ist dran`;
+        }
+        
+        function restartGame() {
+            gameActive = true;
+            currentPlayer = 'X';
+            gameState = ['', '', '', '', '', '', '', '', ''];
+            gameStatus.innerHTML = 'Spieler X ist dran';
+            gameCells.forEach(cell => cell.innerHTML = '');
+        }
+        
+        gameCells.forEach(cell => cell.addEventListener('click', handleCellClick));
+        gameRestart.addEventListener('click', restartGame);
+        
+        // PixelCraft AI functionality
+        aiGenerate.addEventListener('click', function() {
+            const styles = ['abstract', 'realistic', 'fantasy', 'minimal'];
+            const randomStyle = styles[Math.floor(Math.random() * styles.length)];
+            
+            aiCanvas.innerHTML = `
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; margin-bottom: 10px;">🎨</div>
+                    <div>KI-Kunst (${randomStyle})</div>
+                    <div style="font-size: 12px; opacity: 0.7; margin-top: 5px;">Generiert mit PixelCraft AI</div>
+                </div>
+            `;
+        });
+        
+        aiSave.addEventListener('click', function() {
+            alert('KI-Kunstwerk wurde in der Galerie gespeichert!');
+        });
+        
         // Settings navigation
         document.getElementById('update-settings').addEventListener('click', function() {
             settingsApp.classList.add('hidden');
@@ -3267,7 +3326,7 @@
         });
         
         document.getElementById('about-settings').addEventListener('click', function() {
-            alert('PartexOS 10.1\n© 2023 Partex Technologies\nBuild: PXOS-10.1-20230515\nKernel: 5.15.0-partex\nSpeicher: 128GB / 256GB verfügbar');
+            alert('PartexOS 10.2\n© 2023 Partex Technologies\nBuild: PXOS-10.2-20230515\nKernel: 5.15.0-partex\nSpeicher: 128GB / 256GB verfügbar');
         });
         
         document.getElementById('app-permissions').addEventListener('click', function() {
